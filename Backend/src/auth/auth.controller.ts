@@ -1,4 +1,6 @@
 import { Controller, Post, Body, UseGuards, Request, Get } from '@nestjs/common';
+import { ApiTags, ApiBearerAuth, ApiBody } from '@nestjs/swagger';
+import { LoginDto } from './dto/login.dto';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LocalAuthGuard } from './guards/local-auth.guard';
@@ -7,6 +9,7 @@ import { RolesGuard } from './guards/roles.guard';
 import { Roles } from './decorators/roles.decorator';
 import { Role } from '@prisma/client';
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -18,16 +21,19 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
+  @ApiBody({ type: LoginDto })
   async login(@Request() req: any) {
     return this.authService.login(req.user);
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req: any) {
     return req.user;
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
   @Get('admin-only')
