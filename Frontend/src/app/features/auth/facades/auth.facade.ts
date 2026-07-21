@@ -11,7 +11,7 @@ export class AuthFacade {
   private state = signal<AuthState>({
     isLoading: false,
     error: null,
-    isAuthenticated: false
+    isAuthenticated: !!localStorage.getItem('access_token')
   });
 
   readonly isLoading = () => this.state().isLoading;

@@ -1,0 +1,80 @@
+@use "../../../../../scss/abstracts/variables" as v;
+
+.header {
+  height: 7.2rem;
+  background-color: v.$text-light;
+  border-bottom: 0.1rem solid v.$border-light;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3.2rem;
+}
+
+.search-bar {
+  position: relative;
+  width: 40rem;
+
+  .search-icon {
+    position: absolute;
+    left: 1.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: v.$text-secondary;
+    z-index: 1;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 1.2rem 1.2rem 1.2rem 4rem;
+    border-radius: 2rem;
+    border: 0.1rem solid v.$border-light;
+    background: v.$bg-gray;
+    font-size: 1.4rem;
+    
+    &:focus {
+      background: v.$text-light;
+      border-color: v.$primary-color;
+      box-shadow: 0 0 0 0.2rem rgba(v.$primary-color, 0.1);
+    }
+  }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+}
+
+::ng-deep .new-task-btn {
+  background: v.$primary-color;
+  border: none;
+  border-radius: 2rem;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 1.4rem;
+  
+  &:hover {
+    background: v.$primary-color-hover;
+  }
+}
+
+.user-profile {
+  .avatar {
+    width: 4rem;
+    height: 4rem;
+    background-color: rgba(v.$primary-color, 0.1);
+    color: v.$primary-color;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}

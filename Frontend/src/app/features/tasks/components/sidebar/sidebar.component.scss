@@ -1,0 +1,68 @@
+@use "../../../../../scss/abstracts/variables" as v;
+
+.sidebar {
+  width: 26rem;
+  background-color: v.$text-light;
+  border-right: 0.1rem solid v.$border-light;
+  display: flex;
+  flex-direction: column;
+  padding: 2.4rem 0;
+  height: 100vh;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-size: 2.2rem;
+  font-weight: 700;
+  padding: 0 2.4rem;
+  margin-bottom: 4rem;
+  color: v.$text-primary;
+  
+  .logo-icon {
+    width: 3.2rem;
+    height: 3.2rem;
+    background: v.$primary-color;
+    color: v.$text-light;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.8rem;
+    font-size: 1.6rem;
+  }
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0 1.6rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.2rem 1.6rem;
+  border-radius: 0.8rem;
+  text-decoration: none;
+  color: v.$text-secondary;
+  font-size: 1.4rem;
+  font-weight: 500;
+  transition: all 0.2s;
+
+  i {
+    font-size: 1.6rem;
+  }
+
+  &:hover {
+    background-color: v.$bg-gray;
+    color: v.$text-primary;
+  }
+
+  &.active {
+    background-color: rgba(v.$primary-color, 0.1);
+    color: v.$primary-color;
+  }
+}

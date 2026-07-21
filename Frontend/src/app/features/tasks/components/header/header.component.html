@@ -1,0 +1,19 @@
+<header class="header">
+  <div class="search-bar">
+    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+    <input pInputText type="text" placeholder="Buscar tarefas..." class="search-input" />
+  </div>
+  
+  <div class="header-actions">
+    <p-button 
+      label="Nova tarefa" 
+      icon="fa-solid fa-plus" 
+      styleClass="new-task-btn"
+      (onClick)="newTask.emit()">
+    </p-button>
+    
+    <div class="user-profile">
+      <div class="avatar">AM</div>
+    </div>
+  </div>
+</header>
