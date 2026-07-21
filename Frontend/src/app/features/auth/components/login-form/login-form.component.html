@@ -1,0 +1,53 @@
+<div class="login-card">
+  <div class="login-header">
+    <h2>Entrar</h2>
+    <p>Acesse sua conta para continuar</p>
+  </div>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+    <div class="form-group">
+      <label for="email">E-mail</label>
+      <input pInputText type="email" id="email" formControlName="email" placeholder="voce@empresa.com"
+        [ngClass]="{'is-invalid ng-invalid ng-dirty': loginForm.get('email')?.invalid && loginForm.get('email')?.touched}">
+      @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+      <span class="error-msg">
+        E-mail inválido.
+      </span>
+      }
+    </div>
+
+    <div class="form-group">
+      <div class="label-row">
+        <label for="password">Senha</label>
+        <!-- <a href="#" class="forgot-pwd">Esqueci minha senha</a> -->
+      </div>
+      <p-password id="password" formControlName="password" styleClass="w-full" [inputStyle]="{'width':'100%'}"
+        [feedback]="false" [toggleMask]="true"
+        [ngClass]="{'is-invalid ng-invalid ng-dirty': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}"></p-password>
+      @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+      <span class="error-msg">
+        A senha deve ter no mínimo 6 caracteres.
+      </span>
+      }
+    </div>
+
+    @if (error) {
+    <div class="error-alert">
+      {{ error }}
+    </div>
+    }
+
+    <p-button type="submit" label="Entrar" styleClass="btn-primary" [loading]="isLoading" [disabled]="isLoading">
+    </p-button>
+  </form>
+
+  <div class="login-footer">
+    Não tem conta? <a href="javascript:void(0)" (click)="switchMode.emit()">Criar conta</a>
+  </div>
+</div>
+
+<div class="demo-box">
+  <strong>Contas demo:</strong>
+  <p>admin&#64;task.com / admin123</p>
+  <p>user&#64;task.com / user123</p>
+</div>

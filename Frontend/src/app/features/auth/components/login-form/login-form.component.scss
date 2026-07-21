@@ -1,0 +1,143 @@
+@use "../../../../../scss/abstracts/variables" as v;
+
+.login-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.login-header h2 {
+  margin: 0 0 0.8rem;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: v.$text-primary;
+}
+
+.login-header p {
+  margin: 0 0 2.4rem;
+  color: v.$text-secondary;
+  font-size: 1.4rem;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+}
+
+label {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+  color: v.$text-primary;
+}
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.forgot-pwd {
+  font-size: 1.2rem;
+  color: v.$primary-color;
+  text-decoration: none;
+}
+
+:host ::ng-deep {
+  .w-full {
+    width: 100%;
+  }
+
+  input, .p-inputtext {
+    width: 100%;
+    padding: 1.2rem;
+    border: 0.1rem solid v.$border-light;
+    border-radius: 0.8rem;
+    font-size: 1.4rem;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+
+    &:focus, &:enabled:focus {
+      border-color: v.$primary-color;
+    }
+
+    &.is-invalid, &.ng-invalid.ng-dirty {
+      border-color: v.$text-error;
+    }
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 1.2rem;
+    background: v.$primary-color;
+    color: v.$text-light;
+    border: none;
+    border-radius: 0.8rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    justify-content: center;
+
+    &:hover {
+      background: v.$primary-color-hover;
+    }
+
+    &:disabled {
+      background: v.$primary-color-disabled;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.error-msg {
+  display: block;
+  color: v.$text-error;
+  font-size: 1.2rem;
+  margin-top: 0.4rem;
+}
+
+.error-alert {
+  background: v.$bg-error;
+  color: v.$text-error-dark;
+  padding: 1rem;
+  border-radius: 0.6rem;
+  font-size: 1.3rem;
+  margin-bottom: 1.6rem;
+}
+
+.login-footer {
+  margin-top: 2.4rem;
+  text-align: center;
+  font-size: 1.3rem;
+  color: v.$text-secondary;
+}
+
+.login-footer a {
+  color: v.$primary-color;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.demo-box {
+  background: v.$bg-gray;
+  border: 0.1rem solid v.$border-light;
+  padding: 1.6rem;
+  border-radius: 0.8rem;
+  margin-top: 2.4rem;
+  width: 100%;
+  max-width: 40rem;
+  font-size: 1.2rem;
+  color: v.$text-secondary;
+}
+
+.demo-box strong {
+  display: block;
+  margin-bottom: 0.8rem;
+  color: v.$text-primary;
+}
+
+.demo-box p {
+  margin: 0.4rem 0;
+}

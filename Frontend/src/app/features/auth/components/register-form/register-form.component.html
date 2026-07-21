@@ -1,0 +1,66 @@
+<div class="login-card">
+  <div class="login-header">
+    <h2>Criar conta</h2>
+    <p>Comece a organizar seu trabalho</p>
+  </div>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="login-form">
+
+    <div class="form-group">
+      <label for="name">Nome</label>
+      <input pInputText id="name" formControlName="name" class="w-full"
+        [ngClass]="{'ng-invalid ng-dirty': registerForm.get('name')?.invalid && registerForm.get('name')?.touched}">
+      @if (registerForm.get('name')?.invalid && registerForm.get('name')?.touched) {
+      <small class="p-error">
+        Nome é obrigatório.
+      </small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="email">E-mail</label>
+      <input pInputText type="email" id="email" formControlName="email" class="w-full"
+        [ngClass]="{'ng-invalid ng-dirty': registerForm.get('email')?.invalid && registerForm.get('email')?.touched}">
+      @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+      <small class="p-error">
+        E-mail inválido.
+      </small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="password">Senha</label>
+      <p-password id="password" formControlName="password" styleClass="w-full" [inputStyle]="{'width':'100%'}"
+        [feedback]="false" [toggleMask]="true"></p-password>
+      @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+      <small class="p-error">
+        A senha deve ter no mínimo 6 caracteres.
+      </small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirmar senha</label>
+      <p-password id="confirmPassword" formControlName="confirmPassword" styleClass="w-full"
+        [inputStyle]="{'width':'100%'}" [feedback]="false" [toggleMask]="true"></p-password>
+      @if (registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched) {
+      <small class="p-error">
+        As senhas não coincidem.
+      </small>
+      }
+    </div>
+
+    @if (error) {
+    <div class="error-alert">
+      {{ error }}
+    </div>
+    }
+
+    <p-button type="submit" label="Criar conta" [loading]="isLoading" styleClass="w-full" [disabled]="isLoading">
+    </p-button>
+  </form>
+
+  <div class="login-footer">
+    Já tem conta? <a href="javascript:void(0)" (click)="switchMode.emit()">Entrar</a>
+  </div>
+</div>

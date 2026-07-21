@@ -2,7 +2,7 @@ services:
   backend:
     build:
       context: ./Backend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     container_name: taskflow_backend
     restart: always
     ports:
@@ -10,14 +10,21 @@ services:
     environment:
       DATABASE_URL: ${DATABASE_URL}
       PORT: 3000
+    volumes:
+      - ./Backend:/app
+      - /app/node_modules
 
   frontend:
     build:
       context: ./Frontend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     container_name: taskflow_frontend
     restart: always
     ports:
-      - "80:80"
+      - "80:4200"
     depends_on:
       - backend
+    volumes:
+      - ./Frontend:/app
+      - /app/node_modules
+      - /app/.angular
