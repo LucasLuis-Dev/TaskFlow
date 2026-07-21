@@ -17,4 +17,8 @@ export class UsersService {
   async findById(id: string): Promise<User | null> {
     return this.repository.findById(id);
   }
+
+  async count(): Promise<number> {
+    return this.repository.count();
+  }
 }
