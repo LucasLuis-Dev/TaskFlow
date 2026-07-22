@@ -51,7 +51,7 @@ O client-side foi desenvolvido utilizando a mais nova versão do Angular com com
 O servidor foi modelado utilizando os pilares do NestJS (Modularidade, Injeção de Dependências e Decorators).
 
 *   **Padrão Arquitetural**: **Repository Pattern** em conjunto com a camada de Serviço (`Controller -> Service -> Repository`). Isso isola completamente a lógica de manipulação do banco de dados das lógicas de validação de negócios.
-*   **Banco de Dados**: Utilizamos o **Prisma ORM** por conta de sua tipagem estrita de ponta a ponta e facilidade em lidar com migrações de esquemas relacionais, modelando as entidades `User`, `Task` e `Attachment`.
+*   **Banco de Dados**: Utilizamos o **Prisma ORM** integrado com um banco de dados **PostgreSQL** hospedado em nuvem de forma Serverless via **NeonDB**. A escolha do Prisma se deu por conta de sua tipagem estrita de ponta a ponta e facilidade em lidar com migrações de esquemas relacionais, modelando perfeitamente as entidades `User`, `Task` e `Attachment`.
 *   **Segurança e Uploads**: Autenticação feita via validação de JWT nativa do ecossistema Nest e armazenamento de anexos em servidor utilizando o **Multer**.
 *   **Testes Unitários**: Configuração completa utilizando **Jest** para atestar o funcionamento das permissões (`Guards`) e das regras de serviços (Restrição de visualização de tarefas cruzadas).
 
