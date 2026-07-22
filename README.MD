@@ -31,7 +31,7 @@ A aplicação foi dividida em dois ecossistemas robustos para garantir escalabil
 ### Frontend (Angular 21)
 O client-side foi desenvolvido utilizando a mais nova versão do Angular com componentes *Standalone* e a nova reatividade baseada em **Signals**.
 
-*   **Padrão Arquitetural**: **Facade Pattern**. As lógicas de estado e regras de negócios foram extraídas dos componentes visuais e alocadas em `Facades` (ex: `TasksFacade`, `AuthFacade`), que gerenciam o fluxo de dados assíncrono com a API e atualizam os Signals de forma atômica e previsível.
+*   **Padrão Arquitetural**: O projeto adota a **Feature-Driven Architecture (FDA)** para organização de diretórios (dividindo a aplicação em pastas altamente coesas como `auth` e `tasks`) aliada ao **Facade Pattern**. As lógicas de estado e regras de negócios foram extraídas dos componentes visuais e alocadas em `Facades` (ex: `TasksFacade`, `AuthFacade`), que gerenciam o fluxo de dados assíncrono com a API e atualizam os Signals de forma atômica e previsível.
 *   **UI/UX**: Utilizamos a biblioteca **PrimeNG** integrada com um design system proprietário via SCSS, focado em _Glassmorphism_, responsividade (CSS Grid/Flexbox) e alta acessibilidade.
 *   **Testes Unitários**: O ecossistema de testes roda com extrema rapidez utilizando **Vitest**, simulando injeções de dependências e comportamentos (Mocks) da comunicação HTTP e Regras de Negócios.
 
