@@ -59,7 +59,11 @@
           class="btn submit-btn" 
           type="submit" 
           [disabled]="editForm.invalid || facade.isLoading()">
-          Salvar
+          @if (facade.isLoading()) {
+            <i class="fa-solid fa-circle-notch fa-spin"></i> Carregando...
+          } @else {
+            Salvar
+          }
         </button>
       </div>
     </div>

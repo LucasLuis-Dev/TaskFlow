@@ -7,6 +7,7 @@ import { TaskCardComponent } from '../../components/task-card/task-card.componen
 import { CreateTaskModalComponent } from '../../../../shared/components/modals/create-task-modal/create-task-modal.component';
 import { EditTaskModalComponent } from '../../../../shared/components/modals/edit-task-modal/edit-task-modal.component';
 import { Task } from '../../models/task.model';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-my-tasks-page',
@@ -17,13 +18,14 @@ import { Task } from '../../models/task.model';
     HeaderComponent,
     TaskCardComponent,
     CreateTaskModalComponent,
-    EditTaskModalComponent
+    EditTaskModalComponent,
+    SkeletonModule
   ],
   templateUrl: './my-tasks-page.component.html',
   styleUrls: ['./my-tasks-page.component.scss']
 })
 export class MyTasksPageComponent implements OnInit {
-  private tasksFacade = inject(TasksFacade);
+  public tasksFacade = inject(TasksFacade);
 
   myTasks = computed(() => this.tasksFacade.tasks());
 

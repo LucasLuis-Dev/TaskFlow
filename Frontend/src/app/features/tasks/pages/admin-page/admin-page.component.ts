@@ -12,6 +12,8 @@ import { TasksFacade } from '../../facades/tasks.facade';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { TableModule } from 'primeng/table';
+import { SkeletonModule } from 'primeng/skeleton';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 interface TaskExt extends Task {
   assigneeName?: string;
@@ -30,13 +32,15 @@ interface TaskExt extends Task {
     EditTaskModalComponent,
     InputTextModule,
     SelectModule,
-    TableModule
+    TableModule,
+    SkeletonModule,
+    ProgressBarModule
   ],
   templateUrl: './admin-page.component.html',
   styleUrls: ['./admin-page.component.scss']
 })
 export class AdminPageComponent implements OnInit {
-  private tasksFacade = inject(TasksFacade);
+  public tasksFacade = inject(TasksFacade);
   
   ngOnInit() {
     this.tasksFacade.loadTasks();
@@ -47,11 +51,12 @@ export class AdminPageComponent implements OnInit {
   public selectedStatus = null;
   public selectedPriority = null;
 
-  public userOptions = [
-    { label: 'Todos usuários', value: null },
-    { label: 'Admin Master', value: 'Admin Master' },
-    { label: 'Ana Silva', value: 'Ana Silva' }
-  ];
+  get userOptions() {
+    const tasks = this.tasksFacade.tasks() as TaskExt[];
+    const uniqueUsers = Array.from(new Set(tasks.map(t => t.assigneeName).filter(Boolean)));
+    const options = uniqueUsers.map(name => ({ label: name, value: name }));
+    return [{ label: 'Todos usuários', value: null }, ...options];
+  }
 
   public statusOptions = [
     { label: 'Todos status', value: null },

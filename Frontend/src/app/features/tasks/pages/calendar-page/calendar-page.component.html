@@ -19,37 +19,43 @@
         </div>
       </div>
 
-      <div class="calendar-container">
-        
-        <!-- Weekday Headers -->
-        <div class="calendar-grid headers">
-          @for (day of weekDays; track day) {
-            <div class="weekday-header">{{ day }}</div>
-          }
+      @if (tasksFacade.isLoading()) {
+        <div style="margin-top: 3.2rem;">
+          <p-skeleton width="100%" height="70vh" borderRadius="16px"></p-skeleton>
         </div>
+      } @else {
+        <div class="calendar-container">
+          
+          <!-- Weekday Headers -->
+          <div class="calendar-grid headers">
+            @for (day of weekDays; track day) {
+              <div class="weekday-header">{{ day }}</div>
+            }
+          </div>
 
-        <!-- Days Grid -->
-        <div class="calendar-grid days">
-          @for (day of calendarDays(); track day.date.toISOString()) {
-            <div class="calendar-cell" [ngClass]="{'not-current': !day.isCurrentMonth, 'is-today': day.isToday}">
-              <span class="day-number" [ngClass]="{'today-badge': day.isToday}">
-                {{ day.date.getDate() }}
-              </span>
-              
-              <div class="task-list">
-                @for (task of day.tasks; track task.id) {
-                  <div class="calendar-task" 
-                       [ngClass]="getTaskColorClass(task)"
-                       (click)="openTask(task, $event)">
-                    <span class="task-title">{{ task.title }}</span>
-                  </div>
-                }
+          <!-- Days Grid -->
+          <div class="calendar-grid days">
+            @for (day of calendarDays(); track day.date.toISOString()) {
+              <div class="calendar-cell" [ngClass]="{'not-current': !day.isCurrentMonth, 'is-today': day.isToday}">
+                <span class="day-number" [ngClass]="{'today-badge': day.isToday}">
+                  {{ day.date.getDate() }}
+                </span>
+                
+                <div class="task-list">
+                  @for (task of day.tasks; track task.id) {
+                    <div class="calendar-task" 
+                         [ngClass]="getTaskColorClass(task)"
+                         (click)="openTask(task, $event)">
+                      <span class="task-title">{{ task.title }}</span>
+                    </div>
+                  }
+                </div>
               </div>
-            </div>
-          }
-        </div>
+            }
+          </div>
 
-      </div>
+        </div>
+      }
     </div>
   </main>
 </div>

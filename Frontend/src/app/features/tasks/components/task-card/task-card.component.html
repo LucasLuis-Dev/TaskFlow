@@ -13,7 +13,7 @@
   <div class="task-footer">
     <div class="task-meta">
       @if (task.deadline) {
-        <span class="meta-item date"><i class="fa-regular fa-calendar"></i> {{ task.deadline }}</span>
+        <span class="meta-item date"><i class="fa-regular fa-calendar"></i> {{ task.deadline | date:'dd/MM/yyyy' }}</span>
       }
       @if (task.attachmentsCount) {
         <span class="meta-item attach"><i class="fa-solid fa-paperclip"></i> {{ task.attachmentsCount }}</span>

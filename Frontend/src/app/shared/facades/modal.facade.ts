@@ -56,8 +56,8 @@ export class ModalFacade {
   createTask(taskData: any) {
     this.state.update(s => ({ ...s, isLoading: true }));
     
-    this.tasksFacade.createTask(taskData, () => {
-      this.state.update(s => ({ ...s, isLoading: false, isOpen: false }));
+    this.tasksFacade.createTask(taskData, (success) => {
+      this.state.update(s => ({ ...s, isLoading: false, isOpen: !success }));
     });
   }
 
@@ -73,8 +73,12 @@ export class ModalFacade {
   updateTask(taskId: string, taskData: any) {
     this.state.update(s => ({ ...s, isLoading: true }));
     
-    this.tasksFacade.updateTask(taskId, taskData, () => {
-      this.state.update(s => ({ ...s, isLoading: false, isEditOpen: false, editingTask: null }));
+    this.tasksFacade.updateTask(taskId, taskData, (success) => {
+      if (success) {
+        this.state.update(s => ({ ...s, isLoading: false, isEditOpen: false, editingTask: null }));
+      } else {
+        this.state.update(s => ({ ...s, isLoading: false }));
+      }
     });
   }
 
@@ -88,8 +92,12 @@ export class ModalFacade {
         taskData.attachments = uploadResult;
         
         // Then update the task with attachments
-        this.tasksFacade.updateTask(taskId, taskData, () => {
-          this.state.update(s => ({ ...s, isLoading: false, isEditOpen: false, editingTask: null }));
+        this.tasksFacade.updateTask(taskId, taskData, (success) => {
+          if (success) {
+            this.state.update(s => ({ ...s, isLoading: false, isEditOpen: false, editingTask: null }));
+          } else {
+            this.state.update(s => ({ ...s, isLoading: false }));
+          }
         });
       },
       error: () => {
@@ -102,8 +110,12 @@ export class ModalFacade {
   deleteTask(taskId: string) {
     this.state.update(s => ({ ...s, isLoading: true }));
     
-    this.tasksFacade.deleteTask(taskId, () => {
-      this.state.update(s => ({ ...s, isLoading: false, isEditOpen: false, editingTask: null }));
+    this.tasksFacade.deleteTask(taskId, (success) => {
+      if (success) {
+        this.state.update(s => ({ ...s, isLoading: false, isEditOpen: false, editingTask: null }));
+      } else {
+        this.state.update(s => ({ ...s, isLoading: false }));
+      }
     });
   }
 }

@@ -2,11 +2,13 @@ import { Injectable, inject, signal } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { AuthState, LoginCredentials, RegisterCredentials } from '../models/auth.model';
 import { Router } from '@angular/router';
+import { NotificationFacade } from '../../../shared/facades/notification.facade';
 
 @Injectable({ providedIn: 'root' })
 export class AuthFacade {
   private authService = inject(AuthService);
   private router = inject(Router);
+  private notification = inject(NotificationFacade);
 
   private state = signal<AuthState>({
     isLoading: false,
@@ -42,6 +44,7 @@ export class AuthFacade {
     localStorage.setItem('access_token', token);
     const isAdmin = this.checkIfAdmin(token);
     this.state.update(s => ({ ...s, isAuthenticated: true, isLoading: false, isAdmin }));
+    this.notification.success('Bem-vindo!', 'Login realizado com sucesso.');
     this.router.navigate(['/tasks']);
   }
 
@@ -58,11 +61,13 @@ export class AuthFacade {
       error: errorMessage, 
       isLoading: false 
     }));
+    this.notification.error('Falha na autenticação', errorMessage);
   }
 
   logout(): void {
     localStorage.removeItem('access_token');
     this.state.update(s => ({ ...s, isAuthenticated: false, isAdmin: false }));
+    this.notification.info('Sessão encerrada', 'Você saiu da sua conta.');
     this.router.navigate(['/auth/login']);
   }
 

@@ -43,7 +43,11 @@
         class="btn submit-btn" 
         type="submit" 
         [disabled]="taskForm.invalid || facade.isLoading()">
-        Criar tarefa
+        @if (facade.isLoading()) {
+          <i class="fa-solid fa-circle-notch fa-spin"></i> Carregando...
+        } @else {
+          Criar tarefa
+        }
       </button>
     </div>
   </form>

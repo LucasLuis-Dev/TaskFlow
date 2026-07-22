@@ -8,6 +8,7 @@ import { KanbanBoardComponent } from '../../components/kanban-board/kanban-board
 import { CreateTaskModalComponent } from '../../../../shared/components/modals/create-task-modal/create-task-modal.component';
 import { EditTaskModalComponent } from '../../../../shared/components/modals/edit-task-modal/edit-task-modal.component';
 import { Task, TaskStatus } from '../../models/task.model';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -19,13 +20,14 @@ import { Task, TaskStatus } from '../../models/task.model';
     MetricCardComponent,
     KanbanBoardComponent,
     CreateTaskModalComponent,
-    EditTaskModalComponent
+    EditTaskModalComponent,
+    SkeletonModule
   ],
   templateUrl: './dashboard-page.component.html',
   styleUrls: ['./dashboard-page.component.scss']
 })
 export class DashboardPageComponent implements OnInit {
-  private tasksFacade = inject(TasksFacade);
+  public tasksFacade = inject(TasksFacade);
 
   pendingTasks = computed(() => this.tasksFacade.tasks().filter(t => t.status === 'PENDING'));
   inProgressTasks = computed(() => this.tasksFacade.tasks().filter(t => t.status === 'IN_PROGRESS'));

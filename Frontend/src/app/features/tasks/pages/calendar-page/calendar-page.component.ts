@@ -8,6 +8,7 @@ import { EditTaskModalComponent } from '../../../../shared/components/modals/edi
 import { ButtonModule } from 'primeng/button';
 import { ModalFacade } from '../../../../shared/facades/modal.facade';
 import { TasksFacade } from '../../facades/tasks.facade';
+import { SkeletonModule } from 'primeng/skeleton';
 
 interface CalendarDay {
   date: Date;
@@ -25,7 +26,8 @@ interface CalendarDay {
     HeaderComponent, 
     ButtonModule,
     CreateTaskModalComponent,
-    EditTaskModalComponent
+    EditTaskModalComponent,
+    SkeletonModule
   ],
   templateUrl: './calendar-page.component.html',
   styleUrls: ['./calendar-page.component.scss']
@@ -35,7 +37,7 @@ export class CalendarPageComponent implements OnInit {
   public calendarDays = signal<CalendarDay[]>([]);
   public weekDays = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
 
-  private tasksFacade = inject(TasksFacade);
+  public tasksFacade = inject(TasksFacade);
   private modalFacade = inject(ModalFacade);
 
   constructor() {
@@ -95,8 +97,21 @@ export class CalendarPageComponent implements OnInit {
   }
 
   private createCalendarDay(date: Date, isCurrentMonth: boolean, today: Date): CalendarDay {
-    const dateStr = this.formatDateStr(date);
-    const dayTasks = this.tasksFacade.tasks().filter(t => t.deadline === dateStr);
+    const dayTasks = this.tasksFacade.tasks().filter(t => {
+      if (!t.deadline) return false;
+      // Parse ISO string to local Date and compare
+      const tDate = new Date(t.deadline);
+      // Because ISO string parse can be tricky with timezones if it's midnight UTC,
+      // it's best to match the exact calendar year, month, date.
+      // But we have to make sure if backend sent '2026-07-25T00:00:00.000Z' 
+      // tDate.getDate() could be 24 or 25 depending on timezone.
+      // Assuming UTC dates representing midnight, getting the UTC values might be safer, 
+      // but if the app relies on local time, we use local time methods.
+      // Let's use local timezone methods like the rest of the app.
+      return tDate.getFullYear() === date.getFullYear() &&
+             tDate.getMonth() === date.getMonth() &&
+             tDate.getDate() === date.getDate();
+    });
     
     const isToday = date.getDate() === today.getDate() && 
                     date.getMonth() === today.getMonth() && 
@@ -110,6 +125,7 @@ export class CalendarPageComponent implements OnInit {
     };
   }
 
+  // Function kept for potential future use or can be removed if unused.
   private formatDateStr(date: Date): string {
     const d = String(date.getDate()).padStart(2, '0');
     const m = String(date.getMonth() + 1).padStart(2, '0');

@@ -137,11 +137,21 @@
       flex: 1;
       min-width: 25rem;
       border-radius: 0.8rem;
+      font-size: 1.4rem;
     }
 
-    ::ng-deep .filter-select {
-      width: 20rem;
-      border-radius: 0.8rem;
+    ::ng-deep {
+      .filter-select {
+        min-width: 18rem;
+        border-radius: 0.8rem;
+        border: 1px solid v.$border-light;
+
+        .p-select-label {
+          font-size: 1.4rem;
+          padding: 1rem 1.2rem;
+          color: v.$text-primary;
+        }
+      }
     }
   }
 
