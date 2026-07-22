@@ -1,5 +1,4 @@
 <div align="center">
-  <img src="./Frontend/src/assets/logo.svg" alt="TaskFlow Logo" width="120" height="auto" />
   <h1>TaskFlow</h1>
   <p>Uma plataforma moderna e reativa para gestão de tarefas colaborativas.</p>
 </div>
