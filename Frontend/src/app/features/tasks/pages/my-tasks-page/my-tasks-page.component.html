@@ -1,0 +1,27 @@
+<div class="dashboard-layout">
+  <app-sidebar></app-sidebar>
+
+  <main class="main-content">
+    <app-header></app-header>
+
+    <div class="dashboard-body">
+      <div class="welcome-section">
+        <h2>Minhas Tarefas</h2>
+        <p>Acompanhe todas as tarefas atribuídas a você.</p>
+      </div>
+
+      <div class="tasks-grid">
+        @for (task of myTasks(); track task.id) {
+          <app-task-card [task]="task"></app-task-card>
+        } @empty {
+          <div class="empty-state">
+            <p>Você não tem tarefas atribuídas no momento.</p>
+          </div>
+        }
+      </div>
+    </div>
+  </main>
+</div>
+
+<app-create-task-modal></app-create-task-modal>
+<app-edit-task-modal></app-edit-task-modal>

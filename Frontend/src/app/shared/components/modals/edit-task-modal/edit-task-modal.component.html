@@ -1,0 +1,112 @@
+<p-dialog 
+  header="Editar tarefa" 
+  [(visible)]="isVisible" 
+  [modal]="true" 
+  [style]="{ width: '550px' }" 
+  [draggable]="false" 
+  [resizable]="false"
+  styleClass="task-modal"
+  [closeOnEscape]="true"
+>
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="form-layout">
+    
+    <div class="field">
+      <label for="title-edit">Título</label>
+      <input 
+        id="title-edit" 
+        type="text" 
+        pInputText 
+        formControlName="title" 
+      />
+    </div>
+
+    <div class="field">
+      <label for="desc-edit">Descrição</label>
+      <textarea 
+        id="desc-edit" 
+        rows="4" 
+        pTextarea 
+        formControlName="description" 
+      ></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="field">
+        <label for="deadline-edit">Prazo</label>
+        <p-datepicker 
+          id="deadline-edit" 
+          formControlName="deadline" 
+          dateFormat="dd/mm/yy" 
+          [showIcon]="true" 
+          placeholder="dd/mm/aaaa"
+          appendTo="body"
+        ></p-datepicker>
+      </div>
+
+      <div class="field">
+        <label for="priority-edit">Prioridade</label>
+        <p-select 
+          id="priority-edit" 
+          [options]="priorityOptions" 
+          formControlName="priority" 
+          appendTo="body"
+        ></p-select>
+      </div>
+    </div>
+
+    @if (facade.isAdmin()) {
+      <div class="field">
+        <label for="assignee-edit">Atribuir para</label>
+        <p-select 
+          id="assignee-edit" 
+          [options]="userOptions" 
+          formControlName="assignee" 
+          placeholder="Selecione um usuário"
+          appendTo="body"
+        ></p-select>
+      </div>
+    }
+
+    <div class="field">
+      <label>Anexos</label>
+      <p-fileUpload 
+        mode="advanced" 
+        chooseLabel="Arraste arquivos ou clique para enviar" 
+        chooseIcon="fa-solid fa-arrow-up-from-bracket"
+        [showUploadButton]="false"
+        [showCancelButton]="false"
+        [multiple]="true"
+        accept="image/*,.pdf,.doc,.docx"
+        maxFileSize="1000000"
+        (onSelect)="onUpload($event)"
+        styleClass="custom-fileupload"
+      ></p-fileUpload>
+    </div>
+
+    <div class="dialog-footer edit-footer">
+      <p-button 
+        label="Excluir" 
+        icon="fa-regular fa-trash-can"
+        styleClass="p-button-text p-button-danger delete-btn" 
+        (onClick)="onDelete()"
+        type="button">
+      </p-button>
+
+      <div class="right-actions">
+        <p-button 
+          label="Cancelar" 
+          styleClass="p-button-text cancel-btn" 
+          (onClick)="isVisible = false"
+          type="button">
+        </p-button>
+        <p-button 
+          label="Salvar" 
+          type="submit" 
+          [disabled]="editForm.invalid || facade.isLoading()" 
+          [loading]="facade.isLoading()"
+          styleClass="submit-btn">
+        </p-button>
+      </div>
+    </div>
+  </form>
+</p-dialog>

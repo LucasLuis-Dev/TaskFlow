@@ -48,13 +48,22 @@
 ::ng-deep .new-task-btn {
   background: v.$primary-color;
   border: none;
-  border-radius: 2rem;
-  padding: 1rem 2rem;
+  border-radius: 2.4rem; /* More pill shaped */
+  padding: 1rem 2.4rem; /* More horizontal padding */
   font-weight: 600;
   font-size: 1.4rem;
+  gap: 0.8rem; /* Space between icon and text */
+  box-shadow: 0 4px 10px rgba(v.$primary-color, 0.2);
   
   &:hover {
     background: v.$primary-color-hover;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(v.$primary-color, 0.3);
+  }
+  
+  &:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(v.$primary-color, 0.2);
   }
 }
 
@@ -75,6 +84,86 @@
     
     &:hover {
       transform: scale(1.05);
+    }
+  }
+}
+
+::ng-deep .user-popover {
+  background: v.$bg-white;
+  border-radius: 1.2rem;
+  border: 1px solid v.$border-light;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  padding: 0;
+  min-width: 24rem;
+
+  .p-popover-content {
+    padding: 0;
+  }
+}
+
+.user-menu-content {
+  display: flex;
+  flex-direction: column;
+
+  .user-info {
+    padding: 1.6rem 2rem;
+    border-bottom: 1px solid v.$border-light;
+
+    h4 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: v.$text-primary;
+      margin: 0;
+    }
+
+    p {
+      font-size: 1.3rem;
+      color: v.$text-secondary;
+      margin: 0.4rem 0 0 0;
+    }
+  }
+
+  .menu-list {
+    list-style: none;
+    padding: 0.8rem 0;
+    margin: 0;
+
+    li {
+      padding: 1.2rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      font-size: 1.4rem;
+      color: v.$text-primary;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      i {
+        font-size: 1.6rem;
+        color: v.$text-secondary;
+        width: 2rem;
+        text-align: center;
+      }
+
+      &:hover {
+        background-color: v.$bg-gray;
+      }
+
+      &.logout-item {
+        margin-top: 0.4rem;
+        border-top: 1px solid v.$border-light;
+        padding-top: 1.6rem;
+        padding-bottom: 1.6rem;
+        
+        i {
+          color: v.$error-color;
+        }
+
+        &:hover {
+          background-color: rgba(v.$error-color, 0.05);
+          color: v.$error-color;
+        }
+      }
     }
   }
 }

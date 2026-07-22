@@ -1,0 +1,58 @@
+<div class="dashboard-layout">
+  <app-sidebar></app-sidebar>
+
+  <main class="main-content">
+    <app-header></app-header>
+
+    <div class="dashboard-body">
+      
+      <div class="calendar-header">
+        <div class="header-titles">
+          <h2>Calendário</h2>
+          <p>{{ currentMonthName }}</p>
+        </div>
+        
+        <div class="header-actions">
+          <p-button icon="fa-solid fa-arrow-left" (onClick)="previousMonth()" styleClass="nav-btn p-button-text p-button-secondary"></p-button>
+          <p-button label="Hoje" (onClick)="goToToday()" styleClass="nav-btn p-button-text p-button-secondary"></p-button>
+          <p-button icon="fa-solid fa-arrow-right" (onClick)="nextMonth()" styleClass="nav-btn p-button-text p-button-secondary"></p-button>
+        </div>
+      </div>
+
+      <div class="calendar-container">
+        
+        <!-- Weekday Headers -->
+        <div class="calendar-grid headers">
+          @for (day of weekDays; track day) {
+            <div class="weekday-header">{{ day }}</div>
+          }
+        </div>
+
+        <!-- Days Grid -->
+        <div class="calendar-grid days">
+          @for (day of calendarDays(); track day.date.toISOString()) {
+            <div class="calendar-cell" [ngClass]="{'not-current': !day.isCurrentMonth, 'is-today': day.isToday}">
+              <span class="day-number" [ngClass]="{'today-badge': day.isToday}">
+                {{ day.date.getDate() }}
+              </span>
+              
+              <div class="task-list">
+                @for (task of day.tasks; track task.id) {
+                  <div class="calendar-task" 
+                       [ngClass]="getTaskColorClass(task)"
+                       (click)="openTask(task, $event)">
+                    <span class="task-title">{{ task.title }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<app-create-task-modal></app-create-task-modal>
+<app-edit-task-modal></app-edit-task-modal>

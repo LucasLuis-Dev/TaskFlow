@@ -56,4 +56,10 @@ export class AuthFacade {
       isLoading: false 
     }));
   }
+
+  logout(): void {
+    localStorage.removeItem('access_token');
+    this.state.update(s => ({ ...s, isAuthenticated: false }));
+    this.router.navigate(['/auth/login']);
+  }
 }

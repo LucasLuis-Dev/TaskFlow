@@ -1,0 +1,140 @@
+@use "../../../../../scss/abstracts/variables" as v;
+
+::ng-deep .task-modal {
+  border-radius: 1.2rem;
+  overflow: hidden;
+  border: 1px solid v.$border-light;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+
+  .p-dialog-header {
+    background: v.$bg-white;
+    padding: 2.4rem 2.4rem 1.6rem 2.4rem;
+    border-bottom: none;
+    
+    .p-dialog-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: v.$text-primary;
+    }
+
+    .p-dialog-header-close {
+      color: v.$text-secondary;
+      &:hover { background: v.$bg-gray; color: v.$text-primary; }
+    }
+  }
+
+  .p-dialog-content {
+    padding: 0 2.4rem 2.4rem 2.4rem;
+    background: v.$bg-white;
+  }
+}
+
+.form-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 0.8rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+
+  label {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: v.$text-primary;
+  }
+
+  input, textarea {
+    width: 100%;
+    border-radius: 0.8rem;
+    border: 1px solid v.$border-light;
+    padding: 1rem 1.2rem;
+    font-size: 1.4rem;
+    color: v.$text-primary;
+    
+    &:focus {
+      border-color: v.$primary-color;
+      box-shadow: 0 0 0 0.2rem rgba(v.$primary-color, 0.1);
+    }
+  }
+  
+  ::ng-deep {
+    .p-select, .p-datepicker {
+      width: 100%;
+      border-radius: 0.8rem;
+      border: 1px solid v.$border-light;
+      background: v.$bg-white;
+      
+      &:not(.p-disabled).p-focus {
+        border-color: v.$primary-color;
+        box-shadow: 0 0 0 0.2rem rgba(v.$primary-color, 0.1);
+      }
+    }
+    
+    .p-select .p-select-label, .p-inputtext, .p-textarea {
+      font-size: 1.4rem;
+      padding: 1rem 1.2rem;
+      color: v.$text-primary;
+    }
+
+    .p-datepicker .p-button {
+      background: transparent;
+      color: v.$text-secondary;
+      border: none;
+      
+      &:hover {
+        background: v.$bg-gray;
+        color: v.$text-primary;
+      }
+    }
+  }
+}
+
+.form-row {
+  display: flex;
+  gap: 1.6rem;
+  
+  .field {
+    flex: 1;
+  }
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.2rem;
+  margin-top: 1.6rem;
+}
+
+::ng-deep {
+  .cancel-btn {
+    color: v.$text-secondary;
+    font-weight: 600;
+    padding: 1.2rem 2.4rem;
+    border-radius: 0.8rem;
+    background: transparent;
+    border: 1px solid v.$border-light;
+    
+    &:hover {
+      background: v.$bg-error !important;
+      color: v.$error-color !important;
+      border-color: v.$bg-error !important;
+    }
+  }
+
+  .submit-btn {
+    background: v.$primary-color;
+    border: none;
+    font-weight: 600;
+    padding: 1.2rem 2.4rem;
+    border-radius: 0.8rem;
+    color: v.$text-light;
+    
+    &:hover {
+      background: v.$primary-color-hover;
+    }
+  }
+}

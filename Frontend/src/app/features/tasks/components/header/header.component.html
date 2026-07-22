@@ -5,15 +5,31 @@
   </div>
   
   <div class="header-actions">
-    <p-button 
-      label="Nova tarefa" 
-      icon="fa-solid fa-plus" 
-      styleClass="new-task-btn"
-      (onClick)="newTask.emit()">
-    </p-button>
+      <p-button 
+        label="Nova tarefa" 
+        icon="fa-solid fa-plus" 
+        styleClass="new-task-btn"
+        (onClick)="openCreateTaskModal()">
+      </p-button>
     
     <div class="user-profile">
-      <div class="avatar">AM</div>
+      <div class="avatar" (click)="userMenu.toggle($event)">AM</div>
+      
+      <p-popover #userMenu styleClass="user-popover">
+        <div class="user-menu-content">
+          <div class="user-info">
+            <h4>Admin Master</h4>
+            <p>admin@task.com</p>
+          </div>
+          <ul class="menu-list">
+            <li><i class="fa-regular fa-user"></i> Perfil</li>
+            <li><i class="fa-solid fa-gear"></i> Configurações</li>
+            <li class="logout-item" (click)="logout()">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i> Sair
+            </li>
+          </ul>
+        </div>
+      </p-popover>
     </div>
   </div>
 </header>

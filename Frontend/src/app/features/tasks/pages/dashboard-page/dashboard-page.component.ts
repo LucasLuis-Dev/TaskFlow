@@ -4,6 +4,8 @@ import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { HeaderComponent } from '../../components/header/header.component';
 import { MetricCardComponent } from '../../components/metric-card/metric-card.component';
 import { KanbanBoardComponent } from '../../components/kanban-board/kanban-board.component';
+import { CreateTaskModalComponent } from '../../../../shared/components/modals/create-task-modal/create-task-modal.component';
+import { EditTaskModalComponent } from '../../../../shared/components/modals/edit-task-modal/edit-task-modal.component';
 import { Task, TaskStatus } from '../../models/task.model';
 
 @Component({
@@ -14,7 +16,9 @@ import { Task, TaskStatus } from '../../models/task.model';
     SidebarComponent,
     HeaderComponent,
     MetricCardComponent,
-    KanbanBoardComponent
+    KanbanBoardComponent,
+    CreateTaskModalComponent,
+    EditTaskModalComponent
   ],
   templateUrl: './dashboard-page.component.html',
   styleUrls: ['./dashboard-page.component.scss']

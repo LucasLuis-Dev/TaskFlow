@@ -1,0 +1,88 @@
+<p-dialog 
+  header="Nova tarefa" 
+  [(visible)]="isVisible" 
+  [modal]="true" 
+  [style]="{ width: '550px' }" 
+  [draggable]="false" 
+  [resizable]="false"
+  styleClass="task-modal"
+  [closeOnEscape]="true"
+>
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="form-layout">
+    
+    <div class="field">
+      <label for="title">Título</label>
+      <input 
+        id="title" 
+        type="text" 
+        pInputText 
+        formControlName="title" 
+        placeholder="Ex: Revisar landing page" 
+      />
+    </div>
+
+    <div class="field">
+      <label for="desc">Descrição</label>
+      <textarea 
+        id="desc" 
+        rows="4" 
+        pTextarea 
+        formControlName="description" 
+        placeholder="Detalhes..."
+      ></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="field">
+        <label for="deadline">Prazo</label>
+        <p-datepicker 
+          id="deadline" 
+          formControlName="deadline" 
+          dateFormat="dd/mm/yy" 
+          [showIcon]="true" 
+          placeholder="dd/mm/aaaa"
+          appendTo="body"
+        ></p-datepicker>
+      </div>
+
+      <div class="field">
+        <label for="priority">Prioridade</label>
+        <p-select 
+          id="priority" 
+          [options]="priorityOptions" 
+          formControlName="priority" 
+          appendTo="body"
+        ></p-select>
+      </div>
+    </div>
+
+    @if (facade.isAdmin()) {
+      <div class="field">
+        <label for="assignee">Atribuir para</label>
+        <p-select 
+          id="assignee" 
+          [options]="userOptions" 
+          formControlName="assignee" 
+          placeholder="Selecione um usuário"
+          appendTo="body"
+        ></p-select>
+      </div>
+    }
+
+    <div class="dialog-footer">
+      <p-button 
+        label="Cancelar" 
+        styleClass="p-button-text p-button-secondary cancel-btn" 
+        (onClick)="isVisible = false"
+        type="button">
+      </p-button>
+      <p-button 
+        label="Criar tarefa" 
+        type="submit" 
+        [disabled]="taskForm.invalid || facade.isLoading()" 
+        [loading]="facade.isLoading()"
+        styleClass="submit-btn">
+      </p-button>
+    </div>
+  </form>
+</p-dialog>

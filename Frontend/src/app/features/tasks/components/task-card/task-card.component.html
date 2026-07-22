@@ -1,4 +1,4 @@
-<div class="task-card">
+<div class="task-card" (click)="openEdit()" style="cursor: pointer;">
   <div class="task-header">
     <h4 class="task-title">{{ task.title }}</h4>
     <span class="priority-badge" [ngClass]="task.priority.toLowerCase()">
