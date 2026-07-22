@@ -29,7 +29,7 @@
     color: v.$text-primary;
     margin: 0 0 0.8rem 0;
   }
-  
+
   p {
     font-size: 1.4rem;
     color: v.$text-secondary;
@@ -41,7 +41,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
   gap: 2rem;
-  
+
   .empty-state {
     grid-column: 1 / -1;
     text-align: center;

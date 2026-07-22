@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ModalFacade } from '../../../../shared/facades/modal.facade';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,5 +11,5 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
-
+  public facade = inject(ModalFacade);
 }

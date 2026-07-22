@@ -16,11 +16,10 @@
     <a routerLink="/tasks/calendar" routerLinkActive="active" class="nav-item">
       <i class="fa-regular fa-calendar"></i> Calendário
     </a>
+    @if (facade.isAdmin()) {
     <a routerLink="/tasks/admin" routerLinkActive="active" class="nav-item">
       <i class="fa-solid fa-users"></i> Administração
     </a>
-    <a routerLink="/tasks/settings" routerLinkActive="active" class="nav-item">
-      <i class="fa-solid fa-gear"></i> Configurações
-    </a>
+    }
   </nav>
 </aside>

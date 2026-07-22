@@ -38,7 +38,7 @@
       color: v.$text-primary;
       margin: 0;
     }
-    
+
     p {
       font-size: 1.4rem;
       color: v.$text-secondary;
@@ -49,7 +49,7 @@
   .header-actions {
     display: flex;
     gap: 0.8rem;
-    
+
     ::ng-deep .nav-btn {
       color: v.$text-secondary;
       border: 1px solid v.$border-light;
@@ -62,7 +62,7 @@
         background: v.$bg-gray;
         color: v.$text-primary;
       }
-      
+
       .p-button-icon {
         font-size: 1.2rem;
       }
@@ -82,11 +82,11 @@
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  
+
   &.headers {
     background-color: v.$bg-gray;
     border-bottom: 1px solid v.$border-light;
-    
+
     .weekday-header {
       padding: 1.2rem;
       text-align: center;
@@ -95,11 +95,11 @@
       color: v.$text-secondary;
     }
   }
-  
+
   &.days {
     flex: 1;
     grid-auto-rows: minmax(10rem, 1fr);
-    
+
     .calendar-cell {
       border-right: 1px solid v.$border-light;
       border-bottom: 1px solid v.$border-light;
@@ -108,13 +108,14 @@
       flex-direction: column;
       gap: 0.4rem;
       background: v.$bg-white;
-      
+
       &:nth-child(7n) {
         border-right: none;
       }
-      
+
       &.not-current {
         background: rgba(v.$bg-gray, 0.4);
+
         .day-number {
           color: rgba(v.$text-secondary, 0.5);
         }
@@ -131,29 +132,30 @@
         align-items: center;
         justify-content: center;
         border-radius: 50%;
-        
+
         &.today-badge {
           background-color: v.$primary-color;
           color: v.$bg-white;
           font-weight: 600;
         }
       }
-      
+
       .task-list {
         display: flex;
         flex-direction: column;
         gap: 0.4rem;
         overflow-y: auto;
-        
+
         &::-webkit-scrollbar {
           width: 4px;
         }
+
         &::-webkit-scrollbar-thumb {
-          background: rgba(0,0,0,0.1);
+          background: rgba(0, 0, 0, 0.1);
           border-radius: 4px;
         }
       }
-      
+
       .calendar-task {
         padding: 0.4rem 0.8rem;
         border-radius: 0.4rem;
@@ -164,22 +166,22 @@
         overflow: hidden;
         text-overflow: ellipsis;
         transition: transform 0.2s;
-        
+
         &:hover {
           transform: translateY(-1px);
           filter: brightness(0.95);
         }
-        
+
         &.bg-blue {
           background-color: rgba(v.$primary-color, 0.1);
           color: v.$primary-color;
         }
-        
+
         &.bg-yellow {
           background-color: rgba(v.$warning-color, 0.15);
           color: #B58500; // darker yellow for contrast
         }
-        
+
         &.bg-gray {
           background-color: v.$bg-gray;
           color: v.$text-secondary;

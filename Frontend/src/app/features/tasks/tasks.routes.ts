@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from '../../core/guards/auth.guard';
+import { adminGuard } from '../../core/guards/admin.guard';
 
 export const TASKS_ROUTES: Routes = [
   {
@@ -16,5 +17,10 @@ export const TASKS_ROUTES: Routes = [
     path: 'calendar',
     canActivate: [authGuard],
     loadComponent: () => import('./pages/calendar-page/calendar-page.component').then(c => c.CalendarPageComponent)
+  },
+  {
+    path: 'admin',
+    canActivate: [authGuard, adminGuard],
+    loadComponent: () => import('./pages/admin-page/admin-page.component').then(c => c.AdminPageComponent)
   }
 ];
