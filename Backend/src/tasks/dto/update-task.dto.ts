@@ -1,6 +1,6 @@
 import { IsString, IsOptional, IsEnum, IsDateString, IsArray, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
-import { TaskStatus } from '@prisma/client';
+import { TaskStatus, TaskPriority } from '@prisma/client';
 import { CreateAttachmentDto } from './create-task.dto';
 
 export class UpdateTaskDto {
@@ -19,6 +19,14 @@ export class UpdateTaskDto {
   @IsEnum(TaskStatus)
   @IsOptional()
   status?: TaskStatus;
+
+  @IsEnum(TaskPriority)
+  @IsOptional()
+  priority?: TaskPriority;
+
+  @IsString()
+  @IsOptional()
+  assignee?: string;
 
   @IsArray()
   @IsOptional()

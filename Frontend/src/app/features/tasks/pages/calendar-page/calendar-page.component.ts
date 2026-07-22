@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { HeaderComponent } from '../../components/header/header.component';
@@ -7,6 +7,7 @@ import { CreateTaskModalComponent } from '../../../../shared/components/modals/c
 import { EditTaskModalComponent } from '../../../../shared/components/modals/edit-task-modal/edit-task-modal.component';
 import { ButtonModule } from 'primeng/button';
 import { ModalFacade } from '../../../../shared/facades/modal.facade';
+import { TasksFacade } from '../../facades/tasks.facade';
 
 interface CalendarDay {
   date: Date;
@@ -34,49 +35,19 @@ export class CalendarPageComponent implements OnInit {
   public calendarDays = signal<CalendarDay[]>([]);
   public weekDays = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
 
-  // Mocks
-  private tasks: Task[] = [
-    {
-      id: '1',
-      title: 'Migrar autenticação',
-      description: '',
-      status: 'PENDING',
-      priority: 'ALTA',
-      deadline: '18/07/2026', // Use the image's date or relative
-      assigneeInitials: 'AM'
-    },
-    {
-      id: '2',
-      title: 'Definir escopo do projeto',
-      description: '',
-      status: 'IN_PROGRESS',
-      priority: 'MEDIA',
-      deadline: '23/07/2026',
-      assigneeInitials: 'AM'
-    },
-    {
-      id: '3',
-      title: 'Design system inicial',
-      description: '',
-      status: 'COMPLETED',
-      priority: 'BAIXA',
-      deadline: '27/07/2026',
-      assigneeInitials: 'AM'
-    },
-    {
-      id: '4',
-      title: 'Kanban board',
-      description: '',
-      status: 'COMPLETED',
-      priority: 'MEDIA',
-      deadline: '27/07/2026',
-      assigneeInitials: 'AM'
-    }
-  ];
+  private tasksFacade = inject(TasksFacade);
+  private modalFacade = inject(ModalFacade);
 
-  constructor(private modalFacade: ModalFacade) {}
+  constructor() {
+    effect(() => {
+      // Regenerate calendar when tasks change
+      this.tasksFacade.tasks();
+      this.generateCalendar();
+    });
+  }
 
   ngOnInit() {
+    this.tasksFacade.loadTasks();
     this.generateCalendar();
   }
 
@@ -125,7 +96,7 @@ export class CalendarPageComponent implements OnInit {
 
   private createCalendarDay(date: Date, isCurrentMonth: boolean, today: Date): CalendarDay {
     const dateStr = this.formatDateStr(date);
-    const dayTasks = this.tasks.filter(t => t.deadline === dateStr);
+    const dayTasks = this.tasksFacade.tasks().filter(t => t.deadline === dateStr);
     
     const isToday = date.getDate() === today.getDate() && 
                     date.getMonth() === today.getMonth() && 

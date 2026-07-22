@@ -44,11 +44,6 @@ export class CreateTaskModalComponent {
     { label: 'Baixa', value: 'BAIXA' }
   ];
 
-  public userOptions = [
-    { label: 'Lucas (Admin)', value: '1' },
-    { label: 'Maria (Dev)', value: '2' },
-    { label: 'João (Design)', value: '3' }
-  ];
 
   get isVisible(): boolean {
     return this.facade.isOpen();

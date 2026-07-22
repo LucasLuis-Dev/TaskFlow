@@ -1,4 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
+import { TasksFacade } from '../../features/tasks/facades/tasks.facade';
+import { UsersService } from '../../core/services/users.service';
 
 export interface ModalState {
   isOpen: boolean;
@@ -6,16 +8,21 @@ export interface ModalState {
   editingTask: any | null;
   isAdmin: boolean;
   isLoading: boolean;
+  users: { label: string, value: string }[];
 }
 
 @Injectable({ providedIn: 'root' })
 export class ModalFacade {
+  private tasksFacade = inject(TasksFacade);
+  private usersService = inject(UsersService);
+
   private state = signal<ModalState>({
     isOpen: false,
     isEditOpen: false,
     editingTask: null,
     isAdmin: true, // TODO: Obter isso do AuthFacade quando tivermos a regra no token
-    isLoading: false
+    isLoading: false,
+    users: []
   });
 
   readonly isOpen = () => this.state().isOpen;
@@ -23,8 +30,22 @@ export class ModalFacade {
   readonly editingTask = () => this.state().editingTask;
   readonly isAdmin = () => this.state().isAdmin;
   readonly isLoading = () => this.state().isLoading;
+  readonly users = () => this.state().users;
+
+  loadUsers() {
+    if (this.isAdmin() && this.users().length === 0) {
+      this.usersService.getUsers().subscribe({
+        next: (users) => {
+          const userOptions = users.map(u => ({ label: u.name, value: u.id }));
+          this.state.update(s => ({ ...s, users: userOptions }));
+        },
+        error: (err) => console.error('Error fetching users', err)
+      });
+    }
+  }
 
   openModal() {
+    this.loadUsers();
     this.state.update(s => ({ ...s, isOpen: true }));
   }
 
@@ -35,15 +56,13 @@ export class ModalFacade {
   createTask(taskData: any) {
     this.state.update(s => ({ ...s, isLoading: true }));
     
-    // Simulate API call for now
-    setTimeout(() => {
+    this.tasksFacade.createTask(taskData, () => {
       this.state.update(s => ({ ...s, isLoading: false, isOpen: false }));
-      // TODO: Após o sucesso, notificar o TasksFacade para recarregar o kanban
-      console.log('Tarefa criada:', taskData);
-    }, 800);
+    });
   }
 
   openEditModal(task: any) {
+    this.loadUsers();
     this.state.update(s => ({ ...s, isEditOpen: true, editingTask: task }));
   }
 
@@ -54,20 +73,16 @@ export class ModalFacade {
   updateTask(taskId: string, taskData: any) {
     this.state.update(s => ({ ...s, isLoading: true }));
     
-    // Simulate API call for now
-    setTimeout(() => {
+    this.tasksFacade.updateTask(taskId, taskData, () => {
       this.state.update(s => ({ ...s, isLoading: false, isEditOpen: false, editingTask: null }));
-      console.log('Tarefa atualizada:', taskId, taskData);
-    }, 800);
+    });
   }
 
   deleteTask(taskId: string) {
     this.state.update(s => ({ ...s, isLoading: true }));
     
-    // Simulate API call for now
-    setTimeout(() => {
+    this.tasksFacade.deleteTask(taskId, () => {
       this.state.update(s => ({ ...s, isLoading: false, isEditOpen: false, editingTask: null }));
-      console.log('Tarefa excluída:', taskId);
-    }, 800);
+    });
   }
 }

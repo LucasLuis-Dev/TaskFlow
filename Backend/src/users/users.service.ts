@@ -21,4 +21,8 @@ export class UsersService {
   async count(): Promise<number> {
     return this.repository.count();
   }
+
+  async findAll(): Promise<User[]> {
+    return this.repository.findAll();
+  }
 }

@@ -60,9 +60,7 @@
       <div class="field">
         <label for="assignee">Atribuir para</label>
         <p-select 
-          id="assignee" 
-          [options]="userOptions" 
-          formControlName="assignee" 
+          [options]="facade.users()" 
           placeholder="Selecione um usuário"
           appendTo="body"
         ></p-select>

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
@@ -7,6 +7,7 @@ import { MetricCardComponent } from '../../components/metric-card/metric-card.co
 import { Task } from '../../models/task.model';
 import { CreateTaskModalComponent } from '../../../../shared/components/modals/create-task-modal/create-task-modal.component';
 import { EditTaskModalComponent } from '../../../../shared/components/modals/edit-task-modal/edit-task-modal.component';
+import { TasksFacade } from '../../facades/tasks.facade';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
@@ -34,60 +35,12 @@ interface TaskExt extends Task {
   templateUrl: './admin-page.component.html',
   styleUrls: ['./admin-page.component.scss']
 })
-export class AdminPageComponent {
+export class AdminPageComponent implements OnInit {
+  private tasksFacade = inject(TasksFacade);
   
-  public tasks = signal<TaskExt[]>([
-    {
-      id: '1',
-      title: 'Definir escopo do projeto',
-      description: '',
-      status: 'PENDING',
-      priority: 'ALTA',
-      deadline: '23/07/2026',
-      assigneeInitials: 'AS',
-      assigneeName: 'Ana Silva'
-    },
-    {
-      id: '2',
-      title: 'Design system inicial',
-      description: '',
-      status: 'IN_PROGRESS',
-      priority: 'MEDIA',
-      deadline: '27/07/2026',
-      assigneeInitials: 'AS',
-      assigneeName: 'Ana Silva'
-    },
-    {
-      id: '3',
-      title: 'Setup do repositório',
-      description: '',
-      status: 'COMPLETED',
-      priority: 'BAIXA',
-      deadline: '-',
-      assigneeInitials: 'AM',
-      assigneeName: 'Admin Master'
-    },
-    {
-      id: '4',
-      title: 'Migrar autenticação',
-      description: '',
-      status: 'PENDING',
-      priority: 'ALTA',
-      deadline: '18/07/2026',
-      assigneeInitials: 'AM',
-      assigneeName: 'Admin Master'
-    },
-    {
-      id: '5',
-      title: 'Kanban board',
-      description: '',
-      status: 'IN_PROGRESS',
-      priority: 'MEDIA',
-      deadline: '27/07/2026',
-      assigneeInitials: 'AS',
-      assigneeName: 'Ana Silva'
-    }
-  ]);
+  ngOnInit() {
+    this.tasksFacade.loadTasks();
+  }
 
   public searchFilter = '';
   public selectedUser = null;
@@ -115,7 +68,7 @@ export class AdminPageComponent {
   ];
 
   get filteredTasks() {
-    let filtered = this.tasks();
+    let filtered = this.tasksFacade.tasks() as TaskExt[];
 
     if (this.searchFilter) {
       filtered = filtered.filter(t => t.title.toLowerCase().includes(this.searchFilter.toLowerCase()));

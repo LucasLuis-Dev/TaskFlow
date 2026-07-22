@@ -8,13 +8,15 @@ import { Role } from '@prisma/client';
 export class TasksService {
   constructor(private readonly repository: TasksRepository) {}
 
-  async create(createTaskDto: CreateTaskDto, userId: string) {
-    const { attachments, ...taskData } = createTaskDto;
+  async create(createTaskDto: CreateTaskDto, userId: string, userRole: Role) {
+    const { attachments, assignee, ...taskData } = createTaskDto;
     
+    const targetUserId = (userRole === Role.ADMIN && assignee) ? assignee : userId;
+
     return this.repository.create({
       ...taskData,
       deadline: taskData.deadline ? new Date(taskData.deadline) : undefined,
-      user: { connect: { id: userId } },
+      user: { connect: { id: targetUserId } },
       attachments: attachments ? {
         create: attachments
       } : undefined
@@ -42,7 +44,7 @@ export class TasksService {
   async update(id: string, updateTaskDto: UpdateTaskDto, userRole: Role, userId: string) {
     await this.findOne(id, userRole, userId);
 
-    const { attachments, ...taskData } = updateTaskDto;
+    const { attachments, assignee, ...taskData } = updateTaskDto;
     
     const attachmentsUpdate = attachments ? {
       deleteMany: {},
@@ -52,6 +54,7 @@ export class TasksService {
     return this.repository.update(id, {
       ...taskData,
       deadline: taskData.deadline ? new Date(taskData.deadline) : undefined,
+      user: (userRole === Role.ADMIN && assignee) ? { connect: { id: assignee } } : undefined,
       attachments: attachmentsUpdate
     });
   }

@@ -9,14 +9,14 @@ export class TasksRepository {
   async create(data: Prisma.TaskCreateInput): Promise<Task> {
     return this.prisma.task.create({
       data,
-      include: { attachments: true },
+      include: { attachments: true, user: true },
     });
   }
 
   async findAll(where?: Prisma.TaskWhereInput): Promise<Task[]> {
     return this.prisma.task.findMany({
       where,
-      include: { attachments: true },
+      include: { attachments: true, user: true },
       orderBy: { createdAt: 'desc' },
     });
   }
@@ -24,7 +24,7 @@ export class TasksRepository {
   async findById(id: string): Promise<Task | null> {
     return this.prisma.task.findUnique({
       where: { id },
-      include: { attachments: true },
+      include: { attachments: true, user: true },
     });
   }
 
@@ -32,7 +32,7 @@ export class TasksRepository {
     return this.prisma.task.update({
       where: { id },
       data,
-      include: { attachments: true },
+      include: { attachments: true, user: true },
     });
   }
 

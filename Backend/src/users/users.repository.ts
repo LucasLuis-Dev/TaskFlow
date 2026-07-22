@@ -21,4 +21,10 @@ export class UsersRepository {
   async count(): Promise<number> {
     return this.prisma.user.count();
   }
+
+  async findAll(): Promise<User[]> {
+    return this.prisma.user.findMany({
+      orderBy: { name: 'asc' }
+    });
+  }
 }
