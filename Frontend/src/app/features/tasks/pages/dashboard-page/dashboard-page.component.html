@@ -11,11 +11,11 @@
       </div>
 
       <div class="metrics-row">
-        <app-metric-card title="Total" [value]="5" icon="fa-solid fa-list-check" color="default"></app-metric-card>
-        <app-metric-card title="Pendentes" [value]="2" icon="fa-regular fa-clock" color="primary"></app-metric-card>
-        <app-metric-card title="Em andamento" [value]="2" icon="fa-regular fa-circle-play" color="warning"></app-metric-card>
-        <app-metric-card title="Concluídas" [value]="1" icon="fa-regular fa-circle-check" color="success"></app-metric-card>
-        <app-metric-card title="Atrasadas" [value]="1" icon="fa-solid fa-triangle-exclamation" color="danger"></app-metric-card>
+        <app-metric-card title="Total" [value]="totalTasksCount()" icon="fa-solid fa-list-check" color="default"></app-metric-card>
+        <app-metric-card title="Pendentes" [value]="pendingTasksCount()" icon="fa-regular fa-clock" color="primary"></app-metric-card>
+        <app-metric-card title="Em andamento" [value]="inProgressTasksCount()" icon="fa-regular fa-circle-play" color="warning"></app-metric-card>
+        <app-metric-card title="Concluídas" [value]="completedTasksCount()" icon="fa-regular fa-circle-check" color="success"></app-metric-card>
+        <app-metric-card title="Atrasadas" [value]="overdueTasksCount()" icon="fa-solid fa-triangle-exclamation" color="danger"></app-metric-card>
       </div>
 
       <app-kanban-board 

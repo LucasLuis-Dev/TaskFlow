@@ -13,11 +13,11 @@
 
       <!-- Metrics Row -->
       <div class="metrics-row">
-        <app-metric-card title="Total" [value]="5" icon="fa-solid fa-list-check" color="default"></app-metric-card>
-        <app-metric-card title="Pendentes" [value]="2" icon="fa-regular fa-clock" color="primary"></app-metric-card>
-        <app-metric-card title="Em andamento" [value]="2" icon="fa-regular fa-circle-play" color="warning"></app-metric-card>
-        <app-metric-card title="Concluídas" [value]="1" icon="fa-regular fa-circle-check" color="success"></app-metric-card>
-        <app-metric-card title="Atrasadas" [value]="1" icon="fa-solid fa-triangle-exclamation" color="danger"></app-metric-card>
+        <app-metric-card title="Total" [value]="totalTasks" icon="fa-solid fa-list-check" color="default"></app-metric-card>
+        <app-metric-card title="Pendentes" [value]="pendingTasks" icon="fa-regular fa-clock" color="primary"></app-metric-card>
+        <app-metric-card title="Em andamento" [value]="inProgressTasks" icon="fa-regular fa-circle-play" color="warning"></app-metric-card>
+        <app-metric-card title="Concluídas" [value]="completedTasks" icon="fa-regular fa-circle-check" color="success"></app-metric-card>
+        <app-metric-card title="Atrasadas" [value]="overdueTasks" icon="fa-solid fa-triangle-exclamation" color="danger"></app-metric-card>
       </div>
 
       <!-- Progress Section -->
@@ -28,30 +28,30 @@
           <div class="progress-item primary">
             <div class="progress-header">
               <span>Pendente</span>
-              <span>2</span>
+              <span>{{ pendingTasks }}</span>
             </div>
             <div class="progress-track">
-              <div class="progress-fill" style="width: 40%"></div>
+              <div class="progress-fill" [style.width.%]="pendingPercentage"></div>
             </div>
           </div>
           
           <div class="progress-item warning">
             <div class="progress-header">
               <span>Em andamento</span>
-              <span>2</span>
+              <span>{{ inProgressTasks }}</span>
             </div>
             <div class="progress-track">
-              <div class="progress-fill" style="width: 40%"></div>
+              <div class="progress-fill" [style.width.%]="inProgressPercentage"></div>
             </div>
           </div>
 
           <div class="progress-item success">
             <div class="progress-header">
               <span>Concluída</span>
-              <span>1</span>
+              <span>{{ completedTasks }}</span>
             </div>
             <div class="progress-track">
-              <div class="progress-fill" style="width: 20%"></div>
+              <div class="progress-fill" [style.width.%]="completedPercentage"></div>
             </div>
           </div>
 

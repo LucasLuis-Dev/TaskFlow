@@ -99,4 +99,45 @@ export class AdminPageComponent implements OnInit {
     if (status === 'COMPLETED') return 'Concluída';
     return status;
   }
+
+  get totalTasks() {
+    return this.tasksFacade.tasks().length;
+  }
+
+  get pendingTasks() {
+    return this.tasksFacade.tasks().filter(t => t.status === 'PENDING').length;
+  }
+
+  get inProgressTasks() {
+    return this.tasksFacade.tasks().filter(t => t.status === 'IN_PROGRESS').length;
+  }
+
+  get completedTasks() {
+    return this.tasksFacade.tasks().filter(t => t.status === 'COMPLETED').length;
+  }
+
+  get overdueTasks() {
+    const now = new Date();
+    // Assuming deadline format is 'dd/mm/yyyy' in frontend view or 'YYYY-MM-DDTHH:mm...'
+    return this.tasksFacade.tasks().filter(t => {
+      if (!t.deadline || t.status === 'COMPLETED') return false;
+      const d = new Date(t.deadline);
+      return d < now;
+    }).length;
+  }
+
+  get pendingPercentage() {
+    if (this.totalTasks === 0) return 0;
+    return (this.pendingTasks / this.totalTasks) * 100;
+  }
+
+  get inProgressPercentage() {
+    if (this.totalTasks === 0) return 0;
+    return (this.inProgressTasks / this.totalTasks) * 100;
+  }
+
+  get completedPercentage() {
+    if (this.totalTasks === 0) return 0;
+    return (this.completedTasks / this.totalTasks) * 100;
+  }
 }

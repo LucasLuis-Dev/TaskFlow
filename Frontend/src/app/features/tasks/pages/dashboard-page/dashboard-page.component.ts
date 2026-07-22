@@ -31,6 +31,19 @@ export class DashboardPageComponent implements OnInit {
   inProgressTasks = computed(() => this.tasksFacade.tasks().filter(t => t.status === 'IN_PROGRESS'));
   completedTasks = computed(() => this.tasksFacade.tasks().filter(t => t.status === 'COMPLETED'));
 
+  totalTasksCount = computed(() => this.tasksFacade.tasks().length);
+  pendingTasksCount = computed(() => this.pendingTasks().length);
+  inProgressTasksCount = computed(() => this.inProgressTasks().length);
+  completedTasksCount = computed(() => this.completedTasks().length);
+  overdueTasksCount = computed(() => {
+    const now = new Date();
+    return this.tasksFacade.tasks().filter(t => {
+      if (!t.deadline || t.status === 'COMPLETED') return false;
+      const d = new Date(t.deadline);
+      return d < now;
+    }).length;
+  });
+
   ngOnInit() {
     this.tasksFacade.loadTasks();
   }
