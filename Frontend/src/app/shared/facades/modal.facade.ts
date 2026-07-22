@@ -98,9 +98,6 @@ export class ModalFacade {
         // Merge existing attachments with the new upload result
         taskData.attachments = [...existingAttachments, ...uploadResult];
         
-        console.log('uploadResult from server:', uploadResult);
-        console.log('taskData being sent to PATCH:', JSON.stringify(taskData));
-        
         // Then update the task with attachments
         this.tasksFacade.updateTask(taskId, taskData, (success) => {
           if (success) {

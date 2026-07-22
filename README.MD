@@ -143,9 +143,18 @@ npm run test
 
 ---
 
+## 🤖 Uso de Inteligência Artificial (Transparência)
+
+Para acelerar o desenvolvimento do projeto, mantendo a qualidade e o foco na arquitetura, orquestrei ferramentas de IA em etapas estratégicas:
+
+*   **Claude & Lovable (Scaffolding e Design):** Utilizei o Claude para analisar os requisitos do documento do desafio técnico e formular um prompt estruturado. Em seguida, utilizei a ferramenta **Lovable** recebendo esse prompt para gerar um protótipo inicial do Frontend. O código gerado serviu como um excelente ponto de partida e base de UI/UX (Design System) para a construção final do meu projeto.
+*   **Gemini 3.1 Pro / Antigravity IDE (Pair Programming):** Toda a estruturação lógica do Backend (NestJS), construção da arquitetura, integração (Frontend/Backend), automação de testes e as configurações de Deploy em nuvem (Vercel e Render) foram feitas com o auxílio do Gemini 3.1 Pro. Ter a IA como ferramenta de pair-programming elevou a produtividade e permitiu focar nas regras de negócio exigidas pelo desafio.
+
+---
+
 ## 👤 Primeiros Passos (Testando a aplicação)
 
-1. Com ambos os serviços rodando, acesse `http://localhost:4200`.
+1. Com ambos os serviços rodando, acesse `http://localhost:80`.
 2. O primeiro usuário que for registrado na plataforma automaticamente receberá a permissão de **ADMINISTRADOR**.
 3. Crie outras contas fictícias caso deseje testar a restrição de acesso e a dinâmica de gestão de cargos no "Painel de Admin".
 

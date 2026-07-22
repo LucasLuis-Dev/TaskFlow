@@ -27,8 +27,6 @@ export class HeaderComponent {
     return name.substring(0, 2).toUpperCase();
   }
 
-  @Output() newTask = new EventEmitter<void>();
-
   openCreateTaskModal() {
     this.modalFacade.openModal();
   }

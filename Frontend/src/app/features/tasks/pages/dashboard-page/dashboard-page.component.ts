@@ -51,11 +51,6 @@ export class DashboardPageComponent implements OnInit {
   ngOnInit() {
     this.tasksFacade.loadTasks();
   }
-
-  onNewTask() {
-    console.log('Nova tarefa clicada!');
-  }
-
   onTaskMoved(event: { task: Task; newStatus: TaskStatus }) {
     this.tasksFacade.updateTask(event.task.id, { status: event.newStatus });
   }
