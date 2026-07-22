@@ -4,13 +4,13 @@
   border-radius: 1.2rem;
   overflow: hidden;
   border: 1px solid v.$border-light;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 
   .p-dialog-header {
     background: v.$bg-white;
-    padding: 2.4rem 2.4rem 1.6rem 2.4rem;
+    padding: 4rem 4rem 1.6rem 4rem;
     border-bottom: none;
-    
+
     .p-dialog-title {
       font-size: 1.8rem;
       font-weight: 700;
@@ -19,12 +19,16 @@
 
     .p-dialog-header-close {
       color: v.$text-secondary;
-      &:hover { background: v.$bg-gray; color: v.$text-primary; }
+
+      &:hover {
+        background: v.$bg-gray;
+        color: v.$text-primary;
+      }
     }
   }
 
   .p-dialog-content {
-    padding: 0 2.4rem 2.4rem 2.4rem;
+    padding: 0 4rem 4rem 4rem;
     background: v.$bg-white;
   }
 }
@@ -47,34 +51,39 @@
     color: v.$text-primary;
   }
 
-  input, textarea {
+  input,
+  textarea {
     width: 100%;
     border-radius: 0.8rem;
     border: 1px solid v.$border-light;
     padding: 1rem 1.2rem;
     font-size: 1.4rem;
     color: v.$text-primary;
-    
+
     &:focus {
       border-color: v.$primary-color;
       box-shadow: 0 0 0 0.2rem rgba(v.$primary-color, 0.1);
     }
   }
-  
+
   ::ng-deep {
-    .p-select, .p-datepicker {
+
+    .p-select,
+    .p-datepicker {
       width: 100%;
       border-radius: 0.8rem;
       border: 1px solid v.$border-light;
       background: v.$bg-white;
-      
+
       &:not(.p-disabled).p-focus {
         border-color: v.$primary-color;
         box-shadow: 0 0 0 0.2rem rgba(v.$primary-color, 0.1);
       }
     }
-    
-    .p-select .p-select-label, .p-inputtext, .p-textarea {
+
+    .p-select .p-select-label,
+    .p-inputtext,
+    .p-textarea {
       font-size: 1.4rem;
       padding: 1rem 1.2rem;
       color: v.$text-primary;
@@ -84,7 +93,7 @@
       background: transparent;
       color: v.$text-secondary;
       border: none;
-      
+
       &:hover {
         background: v.$bg-gray;
         color: v.$text-primary;
@@ -100,20 +109,20 @@
         padding: 2rem;
         display: flex;
         justify-content: center;
-        
+
         .p-button {
           background: transparent;
           color: v.$text-secondary;
           border: none;
           gap: 0.8rem;
           font-weight: 500;
-          
+
           &:hover {
             color: v.$primary-color;
           }
         }
       }
-      
+
       .p-fileupload-content {
         border: 1px dashed v.$border-light;
         border-top: none;
@@ -133,7 +142,7 @@
 .form-row {
   display: flex;
   gap: 1.6rem;
-  
+
   .field {
     flex: 1;
   }
@@ -151,46 +160,54 @@
   }
 }
 
-::ng-deep {
-  .delete-btn {
-    color: v.$error-color !important;
-    font-weight: 600;
-    padding: 1.2rem 1.6rem;
-    border-radius: 0.8rem;
-    background: transparent;
-    border: none;
-    gap: 0.8rem;
-    
-    &:hover {
-      background: rgba(v.$error-color, 0.1) !important;
-    }
-  }
+.delete-btn {
+  color: v.$error-color !important;
+  font-weight: 600;
+  padding: 1.2rem 1.6rem;
+  border-radius: 0.8rem;
+  background: transparent;
+  border: none;
+  gap: 0.8rem;
+  cursor: pointer;
 
-  .cancel-btn {
-    color: v.$text-secondary;
-    font-weight: 600;
-    padding: 1.2rem 2.4rem;
-    border-radius: 0.8rem;
-    background: transparent;
-    border: 1px solid v.$border-light;
-    
-    &:hover {
-      background: v.$bg-gray !important;
-      color: v.$text-primary !important;
-      border-color: v.$border-light !important;
-    }
+  &:hover {
+    background: rgba(v.$error-color, 0.1) !important;
   }
+}
 
-  .submit-btn {
-    background: v.$primary-color;
-    border: none;
-    font-weight: 600;
-    padding: 1.2rem 2.4rem;
-    border-radius: 0.8rem;
-    color: v.$text-light;
-    
-    &:hover {
-      background: v.$primary-color-hover;
-    }
+.cancel-btn {
+  color: v.$text-secondary;
+  font-weight: 600;
+  padding: 1.2rem 2.4rem;
+  border-radius: 0.8rem;
+  background: transparent;
+  border: 1px solid v.$border-light;
+  cursor: pointer;
+
+  &:hover {
+    background: v.$bg-gray !important;
+    color: v.$text-primary !important;
+    border-color: v.$border-light !important;
+  }
+}
+
+
+.btn {
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+
+.submit-btn {
+  background: v.$primary-color;
+  border: none;
+  font-weight: 600;
+  padding: 1.2rem 2.4rem;
+  border-radius: 0.8rem;
+  color: v.$text-light;
+  cursor: pointer;
+
+  &:hover {
+    background: v.$primary-color-hover;
   }
 }

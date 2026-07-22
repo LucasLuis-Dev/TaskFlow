@@ -3,6 +3,31 @@
     <h3>Quadro Kanban</h3>
     <span class="kanban-subtitle">Arraste os cards entre as colunas</span>
   </div>
+
+  <div class="kanban-filters">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="text" pInputText placeholder="Buscar por título ou descrição..." [(ngModel)]="searchQuery" />
+    </div>
+    
+    <div class="dropdowns">
+      <p-select 
+        [options]="priorityOptions" 
+        [(ngModel)]="selectedPriority" 
+        placeholder="Todas prioridades"
+        [showClear]="true"
+        styleClass="filter-select">
+      </p-select>
+
+      <p-select 
+        [options]="deadlineOptions" 
+        [(ngModel)]="selectedDeadline" 
+        placeholder="Todos prazos"
+        [showClear]="true"
+        styleClass="filter-select">
+      </p-select>
+    </div>
+  </div>
   
   <div class="kanban-board" cdkDropListGroup>
     
@@ -11,17 +36,17 @@
       <div class="column-header">
         <h3>
           <i class="fa-solid fa-clipboard-list icon-pendente"></i> Pendente 
-          <span class="task-count badge-pendente">{{ pendingTasks.length }}</span>
+          <span class="task-count badge-pendente">{{ filteredPendingTasks.length }}</span>
         </h3>
       </div>
       <div class="column-content"
            cdkDropList
-           [cdkDropListData]="pendingTasks"
+           [cdkDropListData]="filteredPendingTasks"
            (cdkDropListDropped)="drop($event, 'PENDING')">
-        @for (task of pendingTasks; track task.id) {
+        @for (task of filteredPendingTasks; track task.id) {
           <app-task-card [task]="task" cdkDrag></app-task-card>
         }
-        @if (pendingTasks.length === 0) {
+        @if (filteredPendingTasks.length === 0) {
           <div class="empty-state">Sem tarefas</div>
         }
       </div>
@@ -32,17 +57,17 @@
       <div class="column-header">
         <h3>
           <i class="fa-solid fa-rocket icon-andamento"></i> Em andamento 
-          <span class="task-count badge-andamento">{{ inProgressTasks.length }}</span>
+          <span class="task-count badge-andamento">{{ filteredInProgressTasks.length }}</span>
         </h3>
       </div>
       <div class="column-content"
            cdkDropList
-           [cdkDropListData]="inProgressTasks"
+           [cdkDropListData]="filteredInProgressTasks"
            (cdkDropListDropped)="drop($event, 'IN_PROGRESS')">
-        @for (task of inProgressTasks; track task.id) {
+        @for (task of filteredInProgressTasks; track task.id) {
           <app-task-card [task]="task" cdkDrag></app-task-card>
         }
-        @if (inProgressTasks.length === 0) {
+        @if (filteredInProgressTasks.length === 0) {
           <div class="empty-state">Sem tarefas</div>
         }
       </div>
@@ -53,17 +78,17 @@
       <div class="column-header">
         <h3>
           <i class="fa-solid fa-circle-check icon-concluida"></i> Concluída 
-          <span class="task-count badge-concluida">{{ completedTasks.length }}</span>
+          <span class="task-count badge-concluida">{{ filteredCompletedTasks.length }}</span>
         </h3>
       </div>
       <div class="column-content"
            cdkDropList
-           [cdkDropListData]="completedTasks"
+           [cdkDropListData]="filteredCompletedTasks"
            (cdkDropListDropped)="drop($event, 'COMPLETED')">
-        @for (task of completedTasks; track task.id) {
+        @for (task of filteredCompletedTasks; track task.id) {
           <app-task-card [task]="task" cdkDrag></app-task-card>
         }
-        @if (completedTasks.length === 0) {
+        @if (filteredCompletedTasks.length === 0) {
           <div class="empty-state">Sem tarefas</div>
         }
       </div>

@@ -1,14 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
   private http = inject(HttpClient);
-  // Idealmente puxado de environments
-  private readonly baseUrl = 'http://localhost:3000';
+  private readonly baseUrl = environment.apiUrl;
 
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('access_token');

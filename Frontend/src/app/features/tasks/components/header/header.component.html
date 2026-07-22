@@ -1,20 +1,12 @@
 <header class="header">
-  <div class="search-bar">
-    <i class="fa-solid fa-magnifying-glass search-icon"></i>
-    <input pInputText type="text" placeholder="Buscar tarefas..." class="search-input" />
-  </div>
-  
   <div class="header-actions">
-      <p-button 
-        label="Nova tarefa" 
-        icon="fa-solid fa-plus" 
-        styleClass="new-task-btn"
-        (onClick)="openCreateTaskModal()">
-      </p-button>
-    
+    <button class="new-task-btn" (click)="openCreateTaskModal()">
+      <i class="fa-solid fa-plus"></i> Nova tarefa
+    </button>
+
     <div class="user-profile">
       <div class="avatar" (click)="userMenu.toggle($event)">AM</div>
-      
+
       <p-popover #userMenu styleClass="user-popover">
         <div class="user-menu-content">
           <div class="user-info">
@@ -22,8 +14,6 @@
             <p>admin@task.com</p>
           </div>
           <ul class="menu-list">
-            <li><i class="fa-regular fa-user"></i> Perfil</li>
-            <li><i class="fa-solid fa-gear"></i> Configurações</li>
             <li class="logout-item" (click)="logout()">
               <i class="fa-solid fa-arrow-right-from-bracket"></i> Sair
             </li>

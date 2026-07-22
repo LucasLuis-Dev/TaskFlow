@@ -6,7 +6,7 @@
   border-radius: 1.6rem;
   padding: 3.2rem;
   margin-top: 3.2rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
 .kanban-header {
@@ -28,12 +28,70 @@
   }
 }
 
-.kanban-board {
+.kanban-filters {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.4rem;
+  gap: 1.6rem;
+
+  .search-box {
+    position: relative;
+    width: 100%;
+
+    .search-icon {
+      position: absolute;
+      left: 1.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: v.$text-secondary;
+      font-size: 1.4rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 1rem 1.2rem 1rem 3.6rem;
+      border: 1px solid v.$border-light;
+      border-radius: 0.8rem;
+      font-size: 1.4rem;
+      color: v.$text-primary;
+
+      &:focus {
+        border-color: v.$primary-color;
+        outline: none;
+        box-shadow: 0 0 0 0.2rem rgba(v.$primary-color, 0.1);
+      }
+    }
+  }
+
+  .dropdowns {
+    display: flex;
+    gap: 1.6rem;
+
+    ::ng-deep {
+      .filter-select {
+        min-width: 18rem;
+        border-radius: 0.8rem;
+        border: 1px solid v.$border-light;
+
+        .p-select-label {
+          font-size: 1.4rem;
+          padding: 1rem 1.2rem;
+          color: v.$text-primary;
+        }
+      }
+    }
+  }
+}
+
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 2.4rem;
   align-items: flex-start;
   overflow-x: auto;
   padding-bottom: 1.6rem;
+  overflow-y: hidden;
 }
 
 .kanban-column {
@@ -57,10 +115,21 @@
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    
-    .icon-pendente { color: #64748b; font-size: 1.4rem; }
-    .icon-andamento { color: v.$warning-color; font-size: 1.4rem; }
-    .icon-concluida { color: v.$success-color; font-size: 1.4rem; }
+
+    .icon-pendente {
+      color: #64748b;
+      font-size: 1.4rem;
+    }
+
+    .icon-andamento {
+      color: v.$warning-color;
+      font-size: 1.4rem;
+    }
+
+    .icon-concluida {
+      color: v.$success-color;
+      font-size: 1.4rem;
+    }
   }
 
   .task-count {
@@ -71,10 +140,21 @@
     font-size: 1.1rem;
     font-weight: 600;
     margin-left: auto;
-    
-    &.badge-pendente { background: #e2e8f0; color: #475569; }
-    &.badge-andamento { background: rgba(v.$warning-color, 0.1); color: v.$warning-color; }
-    &.badge-concluida { background: rgba(v.$success-color, 0.1); color: v.$success-color; }
+
+    &.badge-pendente {
+      background: #e2e8f0;
+      color: #475569;
+    }
+
+    &.badge-andamento {
+      background: rgba(v.$warning-color, 0.1);
+      color: v.$warning-color;
+    }
+
+    &.badge-concluida {
+      background: rgba(v.$success-color, 0.1);
+      color: v.$success-color;
+    }
   }
 }
 
@@ -86,7 +166,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
-  
+
   &.cdk-drop-list-dragging {
     background: rgba(v.$primary-color, 0.02);
   }

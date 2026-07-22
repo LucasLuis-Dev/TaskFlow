@@ -4,7 +4,7 @@
   <main class="main-content">
     <app-header></app-header>
 
-    <div class="dashboard-body">
+    <div class="dashboard-body fade-in-up">
       
       <div class="calendar-header">
         <div class="header-titles">
@@ -13,9 +13,9 @@
         </div>
         
         <div class="header-actions">
-          <p-button icon="fa-solid fa-arrow-left" (onClick)="previousMonth()" styleClass="nav-btn p-button-text p-button-secondary"></p-button>
-          <p-button label="Hoje" (onClick)="goToToday()" styleClass="nav-btn p-button-text p-button-secondary"></p-button>
-          <p-button icon="fa-solid fa-arrow-right" (onClick)="nextMonth()" styleClass="nav-btn p-button-text p-button-secondary"></p-button>
+          <button class="nav-btn btn-icon" (click)="previousMonth()"><i class="fa-solid fa-arrow-left"></i></button>
+          <button class="nav-btn btn-text" (click)="goToToday()">Hoje</button>
+          <button class="nav-btn btn-icon" (click)="nextMonth()"><i class="fa-solid fa-arrow-right"></i></button>
         </div>
       </div>
 
