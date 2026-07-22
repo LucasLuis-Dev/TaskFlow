@@ -78,6 +78,27 @@ export class ModalFacade {
     });
   }
 
+  uploadAndSaveTask(taskId: string, taskData: any, files: File[]) {
+    this.state.update(s => ({ ...s, isLoading: true }));
+    
+    // First upload the files
+    this.tasksFacade.uploadFiles(files).subscribe({
+      next: (uploadResult) => {
+        // uploadResult is an array of { fileUrl, fileName, fileType }
+        taskData.attachments = uploadResult;
+        
+        // Then update the task with attachments
+        this.tasksFacade.updateTask(taskId, taskData, () => {
+          this.state.update(s => ({ ...s, isLoading: false, isEditOpen: false, editingTask: null }));
+        });
+      },
+      error: () => {
+        this.state.update(s => ({ ...s, isLoading: false }));
+        console.error('Error uploading files');
+      }
+    });
+  }
+
   deleteTask(taskId: string) {
     this.state.update(s => ({ ...s, isLoading: true }));
     

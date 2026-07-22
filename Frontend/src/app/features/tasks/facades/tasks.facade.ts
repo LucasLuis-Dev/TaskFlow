@@ -24,6 +24,10 @@ export class TasksFacade {
   readonly isLoading = () => this.state().isLoading;
   readonly error = () => this.state().error;
 
+  uploadFiles(files: File[]) {
+    return this.tasksService.uploadFiles(files);
+  }
+
   loadTasks() {
     this.state.update(s => ({ ...s, isLoading: true, error: null }));
     this.tasksService.getTasks().subscribe({

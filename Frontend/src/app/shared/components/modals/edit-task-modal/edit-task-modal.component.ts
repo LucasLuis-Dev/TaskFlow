@@ -46,6 +46,8 @@ export class EditTaskModalComponent {
     { label: 'Baixa', value: 'BAIXA' }
   ];
 
+  public selectedFiles: File[] = [];
+
 
   constructor() {
     effect(() => {
@@ -89,8 +91,7 @@ export class EditTaskModalComponent {
   }
 
   onUpload(event: any) {
-    // Mock upload handler
-    console.log('Arquivos:', event.files);
+    this.selectedFiles = event.files || [];
   }
 
   onSubmit() {
@@ -102,7 +103,11 @@ export class EditTaskModalComponent {
         data.assignee = '1';
       }
 
-      this.facade.updateTask(task.id, data);
+      if (this.selectedFiles.length > 0) {
+        this.facade.uploadAndSaveTask(task.id, data, this.selectedFiles);
+      } else {
+        this.facade.updateTask(task.id, data);
+      }
     }
   }
 }
