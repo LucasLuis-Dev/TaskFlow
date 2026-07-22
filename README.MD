@@ -6,6 +6,18 @@
 
 ---
 
+## 🌐 Acesse a Aplicação (Deploy)
+
+O projeto está hospedado e disponível para testes:
+*   **Frontend (Vercel):** [https://task-flow-sigma-sable.vercel.app/](https://task-flow-sigma-sable.vercel.app/)
+*   **Backend / API Docs (Render):** [https://taskflow-gf79.onrender.com/api/docs](https://taskflow-gf79.onrender.com/api/docs)
+
+**Credenciais de Teste:**
+*   👑 **Administrador:** `admin@task.com` / `admin123`
+*   👤 **Usuário Comum:** `user@task.com` / `user123`
+
+---
+
 ## 📖 Sobre o Projeto
 
 O **TaskFlow** é um sistema completo de gerenciamento de tarefas desenvolvido como resposta a um desafio técnico. A plataforma permite que equipes organizem fluxos de trabalho através de painéis Kanban, listas de tarefas pessoais e um dashboard gerencial.
@@ -47,11 +59,28 @@ O servidor foi modelado utilizando os pilares do NestJS (Modularidade, Injeção
 
 ## ⚙️ Como rodar o projeto localmente
 
-Siga o passo a passo abaixo para rodar a aplicação completa na sua máquina.
+Você pode iniciar o projeto de forma facilitada via Docker ou configurar os ambientes manualmente.
 
-### Pré-requisitos
+### 🐳 Forma Facilitada (Docker)
+
+Após clonar o repositório, basta:
+1. Criar um arquivo `.env` na pasta `Backend` com a URL do seu banco de dados PostgreSQL:
+   ```env
+   DATABASE_URL="postgresql://usuario:senha@host:5432/taskflow?schema=public"
+   ```
+2. Rodar o comando na raiz do projeto:
+   ```bash
+   docker compose up --build -d
+   ```
+E tudo irá funcionar automaticamente! O Frontend estará em `http://localhost:4200` e a API em `http://localhost:3000`.
+
+---
+
+### 💻 Forma Manual (Sem Docker)
+
+**Pré-requisitos:**
 *   [Node.js](https://nodejs.org/en/) (versão 18+ recomendada)
-*   [PostgreSQL](https://www.postgresql.org/) (Rodando localmente ou via Docker)
+*   [PostgreSQL](https://www.postgresql.org/) (Rodando localmente ou na nuvem)
 *   Gerenciador de pacotes NPM.
 
 ### 1. Configurando o Backend (API)
