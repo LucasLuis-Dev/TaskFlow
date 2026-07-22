@@ -10,6 +10,7 @@
 O projeto está hospedado e disponível para testes:
 *   **Frontend (Vercel):** [https://task-flow-sigma-sable.vercel.app/](https://task-flow-sigma-sable.vercel.app/)
 *   **Backend / API Docs (Render):** [https://taskflow-gf79.onrender.com/api/docs](https://taskflow-gf79.onrender.com/api/docs)
+*   🎥 **Vídeo de Apresentação:** [Assistir no Google Drive](https://drive.google.com/file/d/1WJS6h6MgLsZKKTszMKv0BLKeVctmGqNd/view?usp=sharing)
 
 **Credenciais de Teste:**
 *   👑 **Administrador:** `admin@task.com` / `admin123`
