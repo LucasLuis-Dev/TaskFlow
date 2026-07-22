@@ -11,12 +11,14 @@ export class AuthFacade {
   private state = signal<AuthState>({
     isLoading: false,
     error: null,
-    isAuthenticated: !!localStorage.getItem('access_token')
+    isAuthenticated: !!localStorage.getItem('access_token'),
+    isAdmin: this.checkIfAdmin(localStorage.getItem('access_token'))
   });
 
   readonly isLoading = () => this.state().isLoading;
   readonly error = () => this.state().error;
   readonly isAuthenticated = () => this.state().isAuthenticated;
+  readonly isAdmin = () => this.state().isAdmin;
 
   login(credentials: LoginCredentials): void {
     this.state.update(s => ({ ...s, isLoading: true, error: null }));
@@ -38,7 +40,8 @@ export class AuthFacade {
 
   private handleAuthSuccess(token: string): void {
     localStorage.setItem('access_token', token);
-    this.state.update(s => ({ ...s, isAuthenticated: true, isLoading: false }));
+    const isAdmin = this.checkIfAdmin(token);
+    this.state.update(s => ({ ...s, isAuthenticated: true, isLoading: false, isAdmin }));
     this.router.navigate(['/tasks']);
   }
 
@@ -59,7 +62,17 @@ export class AuthFacade {
 
   logout(): void {
     localStorage.removeItem('access_token');
-    this.state.update(s => ({ ...s, isAuthenticated: false }));
+    this.state.update(s => ({ ...s, isAuthenticated: false, isAdmin: false }));
     this.router.navigate(['/auth/login']);
+  }
+
+  private checkIfAdmin(token: string | null): boolean {
+    if (!token) return false;
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.role === 'ADMIN';
+    } catch (e) {
+      return false;
+    }
   }
 }

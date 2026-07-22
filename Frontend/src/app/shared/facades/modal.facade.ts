@@ -1,12 +1,12 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { TasksFacade } from '../../features/tasks/facades/tasks.facade';
 import { UsersService } from '../../core/services/users.service';
+import { AuthFacade } from '../../features/auth/facades/auth.facade';
 
 export interface ModalState {
   isOpen: boolean;
   isEditOpen: boolean;
   editingTask: any | null;
-  isAdmin: boolean;
   isLoading: boolean;
   users: { label: string, value: string }[];
 }
@@ -15,12 +15,12 @@ export interface ModalState {
 export class ModalFacade {
   private tasksFacade = inject(TasksFacade);
   private usersService = inject(UsersService);
+  private authFacade = inject(AuthFacade);
 
   private state = signal<ModalState>({
     isOpen: false,
     isEditOpen: false,
     editingTask: null,
-    isAdmin: true, // TODO: Obter isso do AuthFacade quando tivermos a regra no token
     isLoading: false,
     users: []
   });
@@ -28,7 +28,7 @@ export class ModalFacade {
   readonly isOpen = () => this.state().isOpen;
   readonly isEditOpen = () => this.state().isEditOpen;
   readonly editingTask = () => this.state().editingTask;
-  readonly isAdmin = () => this.state().isAdmin;
+  readonly isAdmin = () => this.authFacade.isAdmin();
   readonly isLoading = () => this.state().isLoading;
   readonly users = () => this.state().users;
 
