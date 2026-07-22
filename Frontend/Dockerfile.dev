@@ -10,4 +10,4 @@ COPY . .
 EXPOSE 4200
 
 # --poll 2000 is useful for hot-reload in docker containers
-CMD ["npm", "run", "start", "--", "--host", "0.0.0.0", "--poll", "2000"]
+CMD ["sh", "-c", "npm install --legacy-peer-deps && npm run start -- --host 0.0.0.0 --poll 2000"]
