@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, inject, signal, computed } from '@angular/core';
 import { TasksFacade } from '../../features/tasks/facades/tasks.facade';
 import { UsersService } from '../../core/services/users.service';
 import { AuthFacade } from '../../features/auth/facades/auth.facade';
@@ -25,12 +25,12 @@ export class ModalFacade {
     users: []
   });
 
-  readonly isOpen = () => this.state().isOpen;
-  readonly isEditOpen = () => this.state().isEditOpen;
-  readonly editingTask = () => this.state().editingTask;
-  readonly isAdmin = () => this.authFacade.isAdmin();
-  readonly isLoading = () => this.state().isLoading;
-  readonly users = () => this.state().users;
+  readonly isOpen = computed(() => this.state().isOpen);
+  readonly isEditOpen = computed(() => this.state().isEditOpen);
+  readonly editingTask = computed(() => this.state().editingTask);
+  readonly isAdmin = computed(() => this.authFacade.isAdmin());
+  readonly isLoading = computed(() => this.state().isLoading);
+  readonly users = computed(() => this.state().users);
 
   loadUsers() {
     if (this.isAdmin() && this.users().length === 0) {
@@ -97,6 +97,9 @@ export class ModalFacade {
         
         // Merge existing attachments with the new upload result
         taskData.attachments = [...existingAttachments, ...uploadResult];
+        
+        console.log('uploadResult from server:', uploadResult);
+        console.log('taskData being sent to PATCH:', JSON.stringify(taskData));
         
         // Then update the task with attachments
         this.tasksFacade.updateTask(taskId, taskData, (success) => {

@@ -27,4 +27,11 @@ export class UsersRepository {
       orderBy: { name: 'asc' }
     });
   }
+
+  async updateRole(id: string, role: import('@prisma/client').Role): Promise<User> {
+    return this.prisma.user.update({
+      where: { id },
+      data: { role }
+    });
+  }
 }

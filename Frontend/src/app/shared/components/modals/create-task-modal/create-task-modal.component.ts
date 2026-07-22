@@ -60,9 +60,9 @@ export class CreateTaskModalComponent {
     if (this.taskForm.valid) {
       const data = this.taskForm.getRawValue();
       
-      // If the user is not admin, forcefully assign to self (mocked as user 1 for now)
+      // If the user is not admin, the backend will automatically assign them to the task
       if (!this.facade.isAdmin()) {
-        data.assignee = '1';
+        delete (data as any).assignee;
       }
 
       this.facade.createTask(data);

@@ -16,4 +16,5 @@ export interface AuthState {
   isAdmin: boolean;
   userName?: string;
   userEmail?: string;
+  userId?: string;
 }

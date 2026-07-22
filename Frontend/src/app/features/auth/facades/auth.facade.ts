@@ -16,7 +16,8 @@ export class AuthFacade {
     isAuthenticated: !!localStorage.getItem('access_token'),
     isAdmin: this.checkIfAdmin(localStorage.getItem('access_token')),
     userName: this.getUserName(localStorage.getItem('access_token')),
-    userEmail: this.getUserEmail(localStorage.getItem('access_token'))
+    userEmail: this.getUserEmail(localStorage.getItem('access_token')),
+    userId: this.getUserId(localStorage.getItem('access_token'))
   });
 
   readonly isLoading = () => this.state().isLoading;
@@ -25,6 +26,7 @@ export class AuthFacade {
   readonly isAdmin = () => this.state().isAdmin;
   readonly userName = () => this.state().userName;
   readonly userEmail = () => this.state().userEmail;
+  readonly userId = () => this.state().userId;
 
   login(credentials: LoginCredentials): void {
     this.state.update(s => ({ ...s, isLoading: true, error: null }));
@@ -53,7 +55,8 @@ export class AuthFacade {
     const isAdmin = this.checkIfAdmin(token);
     const userName = this.getUserName(token);
     const userEmail = this.getUserEmail(token);
-    this.state.update(s => ({ ...s, isAuthenticated: true, isLoading: false, isAdmin, userName, userEmail }));
+    const userId = this.getUserId(token);
+    this.state.update(s => ({ ...s, isAuthenticated: true, isLoading: false, isAdmin, userName, userEmail, userId }));
     this.notification.success('Bem-vindo!', 'Login realizado com sucesso.');
     this.router.navigate(['/tasks']);
   }
@@ -106,6 +109,16 @@ export class AuthFacade {
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
       return payload.email || '';
+    } catch (e) {
+      return '';
+    }
+  }
+
+  private getUserId(token: string | null): string {
+    if (!token) return '';
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.sub || '';
     } catch (e) {
       return '';
     }

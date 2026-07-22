@@ -8,6 +8,7 @@ export interface Task {
   status: TaskStatus;
   priority: TaskPriority;
   deadline?: string;
+  userId?: string;
   assigneeInitials?: string;
   attachmentsCount?: number;
   attachments?: { fileUrl: string, fileName: string, fileType: string }[];

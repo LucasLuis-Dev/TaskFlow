@@ -1,6 +1,7 @@
 import { Component, inject, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TasksFacade } from '../../facades/tasks.facade';
+import { AuthFacade } from '../../../auth/facades/auth.facade';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { HeaderComponent } from '../../components/header/header.component';
 import { TaskCardComponent } from '../../components/task-card/task-card.component';
@@ -26,8 +27,12 @@ import { SkeletonModule } from 'primeng/skeleton';
 })
 export class MyTasksPageComponent implements OnInit {
   public tasksFacade = inject(TasksFacade);
+  public authFacade = inject(AuthFacade);
 
-  myTasks = computed(() => this.tasksFacade.tasks());
+  myTasks = computed(() => {
+    const userId = this.authFacade.userId();
+    return this.tasksFacade.tasks().filter(t => t.userId === userId);
+  });
 
   ngOnInit() {
     this.tasksFacade.loadTasks();

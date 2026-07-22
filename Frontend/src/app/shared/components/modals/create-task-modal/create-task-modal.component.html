@@ -21,14 +21,14 @@
 
       <div class="field">
         <label for="priority">Prioridade</label>
-        <p-select id="priority" [options]="priorityOptions" formControlName="priority" appendTo="body"></p-select>
+        <p-select id="priority" [options]="priorityOptions" optionLabel="label" optionValue="value" formControlName="priority" appendTo="body"></p-select>
       </div>
     </div>
 
     @if (facade.isAdmin()) {
     <div class="field">
       <label for="assignee">Atribuir para</label>
-      <p-select [options]="facade.users()" placeholder="Selecione um usuário" appendTo="body"></p-select>
+      <p-select id="assignee" formControlName="assignee" [options]="facade.users()" optionLabel="label" optionValue="value" placeholder="Selecione um usuário" appendTo="body"></p-select>
     </div>
     }
 

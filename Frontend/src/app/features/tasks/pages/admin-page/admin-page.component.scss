@@ -244,3 +244,146 @@
     }
   }
 }
+
+.users-section {
+  background: v.$bg-white;
+  border-radius: 1.2rem;
+  border: 1px solid v.$border-light;
+
+  .users-header {
+    padding: 2.4rem;
+    border-bottom: 1px solid v.$border-light;
+
+    h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: v.$text-primary;
+      margin: 0 0 0.4rem 0;
+    }
+
+    p {
+      font-size: 1.3rem;
+      color: v.$text-secondary;
+      margin: 0;
+    }
+  }
+
+  .users-table-container {
+    padding: 0;
+
+    ::ng-deep {
+      .p-datatable {
+        .p-datatable-thead>tr>th {
+          background: transparent;
+          color: v.$text-secondary;
+          font-size: 1.1rem;
+          font-weight: 600;
+          letter-spacing: 0.05rem;
+          text-transform: uppercase;
+          padding: 1.6rem 2.4rem;
+          border-bottom: 1px solid v.$border-light;
+        }
+
+        .p-datatable-tbody>tr {
+          transition: background-color 0.2s;
+
+          &:hover {
+            background-color: rgba(v.$bg-gray, 0.5);
+          }
+
+          >td {
+            padding: 1.6rem 2.4rem;
+            color: v.$text-secondary;
+            font-size: 1.3rem;
+            border-bottom: 1px solid v.$border-light;
+            vertical-align: middle;
+          }
+
+          &:last-child>td {
+            border-bottom: none;
+          }
+        }
+      }
+
+      .role-select {
+        width: 100%;
+        max-width: 10rem;
+        border-radius: 0.8rem;
+        border: 1px solid v.$border-light;
+        background-color: transparent;
+
+        &.p-disabled {
+          background-color: transparent;
+          opacity: 0.8;
+          cursor: not-allowed;
+        }
+
+        .p-select-label {
+          font-size: 1.3rem;
+          padding: 0.8rem 1.2rem;
+          color: v.$text-primary;
+        }
+      }
+    }
+
+    .user-cell {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+
+      .avatar-small {
+        width: 3.2rem;
+        height: 3.2rem;
+        border-radius: 50%;
+        background-color: rgba(v.$primary-color, 0.1);
+        color: v.$primary-color;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+
+      .user-name {
+        color: v.$text-primary;
+        font-weight: 500;
+      }
+    }
+
+    .role-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.4rem 1.2rem;
+      border-radius: 2rem;
+      font-size: 1.2rem;
+      font-weight: 500;
+      border: 1px solid transparent;
+
+      i {
+        font-size: 1.1rem;
+      }
+
+      &.admin {
+        background-color: rgba(v.$primary-color, 0.05);
+        color: v.$primary-color;
+        border-color: rgba(v.$primary-color, 0.2);
+      }
+
+      &.user {
+        background-color: rgba(v.$text-secondary, 0.05);
+        color: v.$text-secondary;
+        border-color: rgba(v.$text-secondary, 0.2);
+      }
+    }
+
+    .self-role-note {
+      display: block;
+      font-size: 1rem;
+      color: v.$text-secondary;
+      margin-top: 0.4rem;
+      text-align: right;
+      max-width: 18rem;
+    }
+  }
+}

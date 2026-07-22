@@ -18,4 +18,8 @@ export class UsersService {
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>('users');
   }
+
+  updateRole(id: string, role: string): Observable<User> {
+    return this.http.patch<User>(`users/${id}/role`, { role });
+  }
 }

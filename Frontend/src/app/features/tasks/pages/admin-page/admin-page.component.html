@@ -136,6 +136,67 @@
       </div>
       }
 
+      <!-- Users Section -->
+      <div class="users-section">
+        <div class="users-header">
+          <h3>Gestão de usuários</h3>
+          <p>Promova ou rebaixe usuários entre os cargos de administrador e usuário comum.</p>
+        </div>
+
+        <div class="users-table-container">
+          <p-table [value]="allUsers" [tableStyle]="{ 'min-width': '50rem' }" [loading]="usersLoading" styleClass="p-datatable-sm">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>USUÁRIO</th>
+                <th>E-MAIL</th>
+                <th>CARGO</th>
+                <th style="text-align: right;">AÇÕES</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-user>
+              <tr>
+                <td>
+                  <div class="user-cell">
+                    <div class="avatar-small">{{ getInitials(user.name) }}</div>
+                    <span class="user-name">{{ user.name }}</span>
+                  </div>
+                </td>
+                <td>{{ user.email }}</td>
+                <td>
+                  <span class="role-badge" [ngClass]="user.role === 'ADMIN' ? 'admin' : 'user'">
+                    <i [ngClass]="user.role === 'ADMIN' ? 'fa-regular fa-circle-dot' : 'fa-regular fa-user'"></i>
+                    {{ user.role === 'ADMIN' ? 'Administrador' : 'Usuário' }}
+                  </span>
+                </td>
+                <td style="text-align: right;">
+                  <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                    <p-select 
+                      [options]="roleOptions" 
+                      [(ngModel)]="user.role" 
+                      optionLabel="label" 
+                      optionValue="value" 
+                      styleClass="role-select"
+                      appendTo="body"
+                      [disabled]="user.id === authFacade.userId()"
+                      (onChange)="changeUserRole(user.id, $event.value)">
+                    </p-select>
+                    @if (user.id === authFacade.userId()) {
+                      <span class="self-role-note">Você não pode alterar seu próprio cargo</span>
+                    }
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="empty">
+              <tr>
+                <td colspan="4" class="empty-message">Nenhum usuário encontrado.</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+
+
     </div>
   </main>
 </div>

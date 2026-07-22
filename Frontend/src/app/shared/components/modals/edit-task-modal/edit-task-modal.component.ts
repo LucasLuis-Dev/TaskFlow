@@ -1,4 +1,4 @@
-import { Component, inject, effect } from '@angular/core';
+import { Component, inject, effect, ViewChild, untracked } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ModalFacade } from '../../../facades/modal.facade';
@@ -9,7 +9,7 @@ import { TextareaModule } from 'primeng/textarea';
 import { SelectModule } from 'primeng/select';
 import { DatePickerModule } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
-import { FileUploadModule } from 'primeng/fileupload';
+import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-edit-task-modal',
@@ -46,25 +46,35 @@ export class EditTaskModalComponent {
     { label: 'Baixa', value: 'BAIXA' }
   ];
 
-  public selectedFiles: File[] = [];
+  @ViewChild(FileUpload) fileUpload!: FileUpload;
 
 
   constructor() {
     effect(() => {
       const task = this.facade.editingTask();
+      const isAdmin = this.facade.isAdmin();
+      const users = this.facade.users();
+
       if (task) {
-        let parsedDate = null;
-        if (task.deadline) {
-          // Parse directly from ISO string
-          parsedDate = new Date(task.deadline);
+        if (isAdmin && users.length === 0) {
+          // Aguarda os usuários carregarem para que o PrimeNG não trave o p-select vazio
+          return;
         }
-        // Parse data from task
-        this.editForm.patchValue({
-          title: task.title,
-          description: task.description,
-          deadline: parsedDate,
-          priority: task.priority,
-          assignee: task.assignee || '1'
+
+        untracked(() => {
+          let parsedDate = null;
+          if (task.deadline) {
+            // Parse directly from ISO string
+            parsedDate = new Date(task.deadline);
+          }
+          // Parse data from task
+          this.editForm.patchValue({
+            title: task.title,
+            description: task.description,
+            deadline: parsedDate,
+            priority: task.priority,
+            assignee: task.userId || null
+          });
         });
       }
     });
@@ -78,7 +88,9 @@ export class EditTaskModalComponent {
     if (!val) {
       this.facade.closeEditModal();
       this.editForm.reset({ priority: 'MEDIA' });
-      this.selectedFiles = [];
+      if (this.fileUpload) {
+        this.fileUpload.clear();
+      }
     }
   }
 
@@ -90,7 +102,7 @@ export class EditTaskModalComponent {
   }
 
   onUpload(event: any) {
-    this.selectedFiles = event.files || [];
+    // We now use ViewChild to get files in onSubmit, but we keep this method bound if needed
   }
 
   onSubmit() {
@@ -99,11 +111,13 @@ export class EditTaskModalComponent {
       const task = this.facade.editingTask();
       
       if (!this.facade.isAdmin()) {
-        data.assignee = '1';
+        delete (data as any).assignee;
       }
 
-      if (this.selectedFiles.length > 0) {
-        this.facade.uploadAndSaveTask(task.id, data, this.selectedFiles);
+      if (this.fileUpload && this.fileUpload.files.length > 0) {
+        const filesToUpload = [...this.fileUpload.files];
+        this.facade.uploadAndSaveTask(task.id, data, filesToUpload);
+        this.fileUpload.clear();
       } else {
         this.facade.updateTask(task.id, data);
       }

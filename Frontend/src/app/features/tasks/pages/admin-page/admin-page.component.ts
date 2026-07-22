@@ -8,6 +8,9 @@ import { Task } from '../../models/task.model';
 import { CreateTaskModalComponent } from '../../../../shared/components/modals/create-task-modal/create-task-modal.component';
 import { EditTaskModalComponent } from '../../../../shared/components/modals/edit-task-modal/edit-task-modal.component';
 import { TasksFacade } from '../../facades/tasks.facade';
+import { UsersService, User as UserModel } from '../../../../core/services/users.service';
+import { AuthFacade } from '../../../auth/facades/auth.facade';
+import { NotificationFacade } from '../../../../shared/facades/notification.facade';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
@@ -41,9 +44,55 @@ interface TaskExt extends Task {
 })
 export class AdminPageComponent implements OnInit {
   public tasksFacade = inject(TasksFacade);
+  public usersService = inject(UsersService);
+  public authFacade = inject(AuthFacade);
+  public notification = inject(NotificationFacade);
   
+  public allUsers: UserModel[] = [];
+  public usersLoading = false;
+
+  public roleOptions = [
+    { label: 'Administrador', value: 'ADMIN' },
+    { label: 'Usuário', value: 'USER' }
+  ];
+
   ngOnInit() {
     this.tasksFacade.loadTasks();
+    this.loadUsers();
+  }
+
+  loadUsers() {
+    this.usersLoading = true;
+    this.usersService.getUsers().subscribe({
+      next: (users) => {
+        this.allUsers = users;
+        this.usersLoading = false;
+      },
+      error: () => {
+        this.usersLoading = false;
+      }
+    });
+  }
+
+  changeUserRole(userId: string, newRole: string) {
+    this.usersService.updateRole(userId, newRole).subscribe({
+      next: () => {
+        this.notification.success('Sucesso', 'Cargo do usuário atualizado.');
+        this.loadUsers(); // reload to get fresh data
+      },
+      error: () => {
+        this.notification.error('Erro', 'Não foi possível alterar o cargo.');
+      }
+    });
+  }
+
+  getInitials(name: string) {
+    if (!name) return 'US';
+    const parts = name.trim().split(' ');
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+    return name.substring(0, 2).toUpperCase();
   }
 
   public searchFilter = '';

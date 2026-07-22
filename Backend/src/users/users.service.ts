@@ -25,4 +25,8 @@ export class UsersService {
   async findAll(): Promise<User[]> {
     return this.repository.findAll();
   }
+
+  async updateRole(id: string, role: import('@prisma/client').Role): Promise<User> {
+    return this.repository.updateRole(id, role);
+  }
 }
