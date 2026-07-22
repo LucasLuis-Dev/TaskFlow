@@ -34,10 +34,25 @@
 
     <div class="field">
       <label>Anexos</label>
-      <p-fileUpload mode="advanced" chooseLabel="Arraste arquivos ou clique para enviar"
+      <p-fileUpload mode="advanced" chooseLabel="Arraste novos arquivos ou clique"
         chooseIcon="fa-solid fa-arrow-up-from-bracket" [showUploadButton]="false" [showCancelButton]="false"
         [multiple]="true" accept="image/*,.pdf,.doc,.docx" maxFileSize="1000000" (onSelect)="onUpload($event)"
         styleClass="custom-fileupload"></p-fileUpload>
+        
+      @if (facade.editingTask()?.attachments?.length) {
+        <div class="existing-attachments">
+          <label>Arquivos já anexados</label>
+          <div class="attachment-list">
+            @for (att of facade.editingTask().attachments; track att.fileUrl) {
+              <a href="#" (click)="downloadFile(att.fileUrl, att.fileName, $event)" class="attachment-item">
+                <i class="fa-solid fa-file"></i>
+                <span class="attachment-name">{{ att.fileName }}</span>
+                <i class="fa-solid fa-download download-icon"></i>
+              </a>
+            }
+          </div>
+        </div>
+      }
     </div>
 
     <div class="dialog-footer edit-footer">

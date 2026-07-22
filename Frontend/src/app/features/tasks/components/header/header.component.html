@@ -5,13 +5,13 @@
     </button>
 
     <div class="user-profile">
-      <div class="avatar" (click)="userMenu.toggle($event)">AM</div>
+      <div class="avatar" (click)="userMenu.toggle($event)">{{ userInitials }}</div>
 
       <p-popover #userMenu styleClass="user-popover">
         <div class="user-menu-content">
           <div class="user-info">
-            <h4>Admin Master</h4>
-            <p>admin@task.com</p>
+            <h4>{{ authFacade.userName() }}</h4>
+            <p>{{ authFacade.userEmail() }}</p>
           </div>
           <ul class="menu-list">
             <li class="logout-item" (click)="logout()">

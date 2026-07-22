@@ -14,4 +14,6 @@ export interface AuthState {
   error: string | null;
   isAuthenticated: boolean;
   isAdmin: boolean;
+  userName?: string;
+  userEmail?: string;
 }

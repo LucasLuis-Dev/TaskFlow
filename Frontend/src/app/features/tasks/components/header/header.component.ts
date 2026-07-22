@@ -15,7 +15,17 @@ import { AuthFacade } from '../../../auth/facades/auth.facade';
 })
 export class HeaderComponent {
   private modalFacade = inject(ModalFacade);
-  private authFacade = inject(AuthFacade);
+  public authFacade = inject(AuthFacade);
+
+  get userInitials() {
+    const name = this.authFacade.userName() || '';
+    if (!name) return 'US';
+    const parts = name.trim().split(' ');
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+    return name.substring(0, 2).toUpperCase();
+  }
 
   @Output() newTask = new EventEmitter<void>();
 

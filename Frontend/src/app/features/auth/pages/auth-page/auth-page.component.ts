@@ -27,7 +27,9 @@ export class AuthPageComponent {
   }
 
   onRegisterSubmit(credentials: RegisterCredentials) {
-    this.authFacade.register(credentials);
+    this.authFacade.register(credentials, () => {
+      this.switchMode('login');
+    });
   }
 
   switchMode(newMode: 'login' | 'register') {

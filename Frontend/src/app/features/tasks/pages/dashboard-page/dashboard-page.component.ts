@@ -1,6 +1,7 @@
 import { Component, inject, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TasksFacade } from '../../facades/tasks.facade';
+import { AuthFacade } from '../../../auth/facades/auth.facade';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { HeaderComponent } from '../../components/header/header.component';
 import { MetricCardComponent } from '../../components/metric-card/metric-card.component';
@@ -28,6 +29,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 })
 export class DashboardPageComponent implements OnInit {
   public tasksFacade = inject(TasksFacade);
+  public authFacade = inject(AuthFacade);
 
   pendingTasks = computed(() => this.tasksFacade.tasks().filter(t => t.status === 'PENDING'));
   inProgressTasks = computed(() => this.tasksFacade.tasks().filter(t => t.status === 'IN_PROGRESS'));

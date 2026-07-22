@@ -88,8 +88,15 @@ export class ModalFacade {
     // First upload the files
     this.tasksFacade.uploadFiles(files).subscribe({
       next: (uploadResult) => {
-        // uploadResult is an array of { fileUrl, fileName, fileType }
-        taskData.attachments = uploadResult;
+        const currentTask = this.editingTask();
+        const existingAttachments = currentTask?.attachments?.map((a: any) => ({
+          fileName: a.fileName,
+          fileUrl: a.fileUrl,
+          fileType: a.fileType
+        })) || [];
+        
+        // Merge existing attachments with the new upload result
+        taskData.attachments = [...existingAttachments, ...uploadResult];
         
         // Then update the task with attachments
         this.tasksFacade.updateTask(taskId, taskData, (success) => {

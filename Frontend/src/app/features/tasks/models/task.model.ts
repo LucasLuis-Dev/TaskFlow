@@ -10,4 +10,5 @@ export interface Task {
   deadline?: string;
   assigneeInitials?: string;
   attachmentsCount?: number;
+  attachments?: { fileUrl: string, fileName: string, fileType: string }[];
 }

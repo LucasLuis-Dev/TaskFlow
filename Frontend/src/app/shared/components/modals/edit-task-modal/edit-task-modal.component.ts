@@ -55,10 +55,8 @@ export class EditTaskModalComponent {
       if (task) {
         let parsedDate = null;
         if (task.deadline) {
-          const parts = task.deadline.split('/');
-          if (parts.length === 3) {
-            parsedDate = new Date(`${parts[2]}-${parts[1]}-${parts[0]}T12:00:00`);
-          }
+          // Parse directly from ISO string
+          parsedDate = new Date(task.deadline);
         }
         // Parse data from task
         this.editForm.patchValue({
@@ -80,6 +78,7 @@ export class EditTaskModalComponent {
     if (!val) {
       this.facade.closeEditModal();
       this.editForm.reset({ priority: 'MEDIA' });
+      this.selectedFiles = [];
     }
   }
 
@@ -109,5 +108,25 @@ export class EditTaskModalComponent {
         this.facade.updateTask(task.id, data);
       }
     }
+  }
+
+  downloadFile(url: string, fileName: string, event: Event) {
+    event.preventDefault();
+    fetch(url)
+      .then(response => response.blob())
+      .then(blob => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+      })
+      .catch(err => {
+        console.error('Erro ao baixar arquivo', err);
+        // Fallback: just open in new tab
+        window.open(url, '_blank');
+      });
   }
 }

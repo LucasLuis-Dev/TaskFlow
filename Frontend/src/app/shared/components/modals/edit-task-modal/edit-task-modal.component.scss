@@ -101,39 +101,119 @@
     }
 
     .custom-fileupload {
+      display: flex;
+      flex-direction: column;
+      border: 1px dashed v.$border-light;
+      border-radius: 0.8rem;
+      background: rgba(0, 0, 0, 0.01);
+      padding: 1.2rem;
+      transition: border-color 0.2s, background-color 0.2s;
+      font-size: 1.4rem;
+
+      &:hover {
+        border-color: v.$primary-color;
+        background: rgba(v.$primary-color, 0.02);
+      }
+
+      .p-fileupload-choose-button {
+        font-size: 1.3rem !important;
+        padding: 1rem !important;
+        gap: 0.8rem !important;
+      }
+
       .p-fileupload-buttonbar {
         background: transparent;
-        border: 1px dashed v.$border-light;
-        border-bottom: none;
-        border-radius: 0.8rem 0.8rem 0 0;
-        padding: 2rem;
+        border: none;
+        padding: 0;
         display: flex;
         justify-content: center;
 
         .p-button {
-          background: transparent;
-          color: v.$text-secondary;
-          border: none;
+          background: transparent !important;
+          color: v.$text-secondary !important;
+          border: none !important;
+          box-shadow: none !important;
           gap: 0.8rem;
           font-weight: 500;
+          font-size: 1.4rem;
+          padding: 1.6rem;
+          width: 100%;
+          justify-content: center;
 
           &:hover {
-            color: v.$primary-color;
+            color: v.$primary-color !important;
+            background: transparent !important;
           }
         }
       }
 
       .p-fileupload-content {
-        border: 1px dashed v.$border-light;
-        border-top: none;
-        border-radius: 0 0 0.8rem 0.8rem;
-        padding: 0 2rem 2rem 2rem;
-        background: transparent;
-      }
-
-      &.p-fileupload-advanced {
-        border-radius: 0.8rem;
         border: none;
+        padding: 0;
+        background: transparent;
+
+        .p-fileupload-empty {
+          display: none;
+        }
+
+        .p-fileupload-file {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 1.2rem;
+          margin-top: 1.2rem;
+          background: v.$bg-white;
+          border: 1px solid v.$border-light;
+          border-radius: 0.6rem;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+          gap: 1.2rem;
+
+          img {
+            display: none !important; // Hide thumbnail, looks bad for docs/pdfs
+          }
+
+          .p-fileupload-file-details {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            flex: 1;
+            min-width: 0; // For text ellipsis to work
+          }
+
+          .p-fileupload-filename {
+            font-size: 1.3rem;
+            color: v.$text-primary;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .p-fileupload-file-badge {
+            display: none !important; // Hide 'Pending' badge
+          }
+
+          .p-badge {
+            display: none !important;
+          }
+
+          .p-button {
+            color: v.$text-secondary !important;
+            background: transparent !important;
+            border: none !important;
+            width: 3rem !important;
+            height: 3rem !important;
+            border-radius: 50% !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {
+              background: rgba(v.$error-color, 0.1) !important;
+              color: v.$error-color !important;
+            }
+          }
+        }
       }
     }
   }
@@ -209,5 +289,63 @@
 
   &:hover {
     background: v.$primary-color-hover;
+  }
+}
+
+.existing-attachments {
+  margin-top: 1.6rem;
+
+  label {
+    font-size: 1.3rem;
+    color: v.$text-secondary;
+    margin-bottom: 0.8rem;
+    display: block;
+    font-weight: 500;
+  }
+
+  .attachment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .attachment-item {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.2rem;
+    background: v.$bg-gray;
+    border: 1px solid v.$border-light;
+    border-radius: 0.8rem;
+    text-decoration: none;
+    color: v.$text-primary;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: v.$primary-color;
+      background: rgba(v.$primary-color, 0.02);
+      
+      .download-icon {
+        color: v.$primary-color;
+      }
+    }
+
+    i {
+      color: v.$text-secondary;
+    }
+
+    .attachment-name {
+      flex: 1;
+      font-size: 1.3rem;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .download-icon {
+      margin-left: auto;
+      font-size: 1.4rem;
+    }
   }
 }
